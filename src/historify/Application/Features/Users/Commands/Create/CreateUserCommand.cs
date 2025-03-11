@@ -12,25 +12,34 @@ namespace Application.Features.Users.Commands.Create;
 
 public class CreateUserCommand : IRequest<CreatedUserResponse>, ISecuredRequest
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Name { get; set; }
+    public string Surname { get; set; }
+    public string UserName { get; set; }
+    public string CountryCode { get; set; }
+    public string PhoneNumber { get; set; }
 
     public CreateUserCommand()
     {
-        FirstName = string.Empty;
-        LastName = string.Empty;
         Email = string.Empty;
         Password = string.Empty;
+        Name = string.Empty;
+        Surname = string.Empty;
+        UserName = string.Empty;
+        CountryCode = string.Empty;
+        PhoneNumber = string.Empty;
     }
 
-    public CreateUserCommand(string firstName, string lastName, string email, string password)
+    public CreateUserCommand(string email, string password, string name, string surname, string userName, string countryCode, string phoneNumber)
     {
-        FirstName = firstName;
-        LastName = lastName;
         Email = email;
         Password = password;
+        Name = name;
+        Surname = surname;
+        UserName = userName;
+        CountryCode = countryCode;
+        PhoneNumber = phoneNumber;
     }
 
     public string[] Roles => new[] { Admin, Write, UsersOperationClaims.Create };
@@ -51,18 +60,11 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>, ISecuredRequest
         public async Task<CreatedUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             await _userBusinessRules.UserEmailShouldNotExistsWhenInsert(request.Email);
+
             User user = _mapper.Map<User>(request);
+            await _userRepository.AddAsync(user);
 
-            HashingHelper.CreatePasswordHash(
-                request.Password,
-                passwordHash: out byte[] passwordHash,
-                passwordSalt: out byte[] passwordSalt
-            );
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            User createdUser = await _userRepository.AddAsync(user);
-
-            CreatedUserResponse response = _mapper.Map<CreatedUserResponse>(createdUser);
+            CreatedUserResponse response = _mapper.Map<CreatedUserResponse>(user);
             return response;
         }
     }

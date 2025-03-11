@@ -17,12 +17,19 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(u => u.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(u => u.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(u => u.Name).HasColumnName("Name").IsRequired();
+        builder.Property(u => u.Surname).HasColumnName("Surname").IsRequired();
+        builder.Property(u => u.UserName).HasColumnName("UserName").IsRequired();
+        builder.Property(u => u.CountryCode).HasColumnName("CountryCode").IsRequired();
+        builder.Property(u => u.PhoneNumber).HasColumnName("PhoneNumber").IsRequired();
 
         builder.HasQueryFilter(u => !u.DeletedDate.HasValue);
 
         builder.HasMany(u => u.UserOperationClaims);
         builder.HasMany(u => u.RefreshTokens);
-
+        builder.HasMany(u => u.EmailAuthenticators);
+        builder.HasMany(u => u.OtpAuthenticators);
+        builder.HasMany(u => u.UserImages);
 
         builder.HasData(GetSeeds());
     }

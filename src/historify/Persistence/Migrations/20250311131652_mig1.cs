@@ -1,0 +1,269 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Persistence.Migrations
+{
+    /// <inheritdoc />
+    public partial class mig1 : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "OperationClaims",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Surname = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: false),
+                    CountryCode = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "bytea", nullable: false),
+                    AuthenticatorType = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailAuthenticators",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ActivationKey = table.Column<string>(type: "text", nullable: true),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailAuthenticators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmailAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OtpAuthenticators",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SecretKey = table.Column<byte[]>(type: "bytea", nullable: false),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtpAuthenticators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OtpAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "text", nullable: false),
+                    ExpiresDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedByIp = table.Column<string>(type: "text", nullable: false),
+                    RevokedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    RevokedByIp = table.Column<string>(type: "text", nullable: true),
+                    ReplacedByToken = table.Column<string>(type: "text", nullable: true),
+                    ReasonRevoked = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ImagePath = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    UploadDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Tags = table.Column<string>(type: "text", nullable: true),
+                    StorageType = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserImages_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOperationClaims",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OperationClaimId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOperationClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_OperationClaims_OperationClaimId",
+                        column: x => x.OperationClaimId,
+                        principalTable: "OperationClaims",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserOperationClaims_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "OperationClaims",
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { new Guid("00000000-0000-0000-0000-000000000001"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "Admin", null },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "User", null },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "DemoUser", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "AuthenticatorType", "CountryCode", "CreatedDate", "DeletedDate", "Email", "Name", "PasswordHash", "PasswordSalt", "PhoneNumber", "Surname", "UpdatedDate", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("11111111-1111-1111-1111-111111111111"), 0, "+90", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "admin@domain.com", "Admin", new byte[] { 109, 160, 105, 75, 241, 116, 48, 18, 233, 185, 249, 20, 96, 70, 236, 247, 208, 176, 214, 70, 165, 130, 68, 82, 178, 104, 207, 42, 48, 150, 65, 220, 73, 152, 155, 225, 128, 78, 105, 212, 85, 152, 238, 135, 93, 189, 120, 114, 241, 89, 145, 13, 241, 111, 173, 175, 134, 243, 94, 216, 19, 127, 219, 93 }, new byte[] { 119, 169, 78, 1, 82, 254, 132, 192, 75, 233, 194, 135, 43, 102, 138, 116, 90, 44, 165, 218, 33, 225, 217, 133, 164, 145, 224, 175, 85, 185, 78, 105, 125, 246, 122, 89, 50, 135, 27, 8, 226, 89, 92, 188, 153, 138, 247, 102, 49, 97, 51, 32, 237, 241, 228, 235, 19, 17, 74, 105, 137, 78, 6, 133, 179, 10, 109, 41, 244, 75, 32, 129, 192, 55, 151, 120, 251, 21, 98, 107, 98, 125, 132, 19, 241, 9, 151, 140, 159, 125, 28, 26, 113, 238, 6, 61, 78, 146, 181, 155, 49, 151, 85, 23, 94, 204, 35, 221, 254, 140, 2, 76, 192, 84, 209, 177, 234, 58, 127, 222, 229, 222, 68, 55, 122, 68, 225, 81 }, "5555555555", "User", null, "admin" },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), 0, "+90", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "user@domain.com", "Standard", new byte[] { 42, 138, 9, 188, 241, 12, 113, 223, 149, 218, 231, 89, 116, 26, 26, 169, 197, 161, 246, 41, 166, 57, 198, 78, 246, 72, 214, 152, 75, 225, 35, 236, 35, 46, 13, 222, 193, 80, 72, 214, 94, 157, 191, 64, 168, 80, 177, 129, 158, 176, 3, 208, 16, 173, 70, 197, 225, 127, 32, 90, 104, 103, 45, 7 }, new byte[] { 165, 95, 245, 157, 68, 226, 38, 70, 186, 33, 92, 16, 110, 30, 218, 237, 213, 61, 254, 40, 229, 254, 218, 46, 97, 26, 113, 209, 188, 17, 0, 181, 152, 249, 76, 169, 123, 208, 121, 79, 30, 144, 174, 20, 137, 61, 232, 38, 109, 50, 68, 131, 177, 27, 117, 199, 7, 179, 197, 104, 228, 248, 57, 222, 212, 216, 188, 193, 212, 47, 102, 55, 24, 28, 133, 210, 187, 129, 33, 67, 225, 226, 157, 226, 226, 245, 200, 15, 153, 44, 77, 10, 36, 78, 74, 26, 26, 198, 160, 243, 59, 77, 187, 196, 164, 121, 6, 250, 251, 129, 196, 82, 174, 229, 155, 247, 154, 53, 159, 36, 249, 133, 67, 189, 216, 68, 213, 178 }, "5555555556", "User", null, "user" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), 0, "+90", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "demo@domain.com", "Demo", new byte[] { 254, 75, 129, 99, 189, 121, 139, 155, 125, 232, 214, 212, 215, 185, 239, 84, 11, 0, 145, 76, 128, 111, 65, 92, 157, 193, 148, 193, 192, 179, 185, 71, 199, 66, 179, 119, 45, 59, 131, 107, 179, 135, 161, 207, 74, 185, 35, 101, 109, 202, 236, 39, 105, 225, 200, 252, 129, 99, 140, 18, 188, 203, 229, 185 }, new byte[] { 40, 18, 83, 177, 208, 175, 67, 185, 100, 99, 70, 216, 190, 91, 85, 20, 167, 164, 239, 84, 53, 132, 147, 39, 240, 88, 108, 136, 179, 70, 196, 27, 29, 251, 171, 165, 45, 186, 182, 78, 227, 34, 55, 149, 115, 234, 168, 109, 46, 116, 249, 177, 112, 130, 215, 17, 24, 178, 65, 74, 36, 102, 189, 254, 99, 186, 246, 43, 115, 255, 217, 88, 78, 171, 102, 124, 162, 215, 51, 119, 152, 250, 100, 241, 58, 156, 6, 118, 78, 200, 2, 86, 225, 231, 46, 197, 64, 222, 61, 184, 159, 34, 96, 180, 134, 34, 229, 82, 8, 173, 185, 12, 80, 104, 221, 73, 117, 203, 221, 102, 19, 118, 197, 222, 30, 192, 15, 186 }, "5555555557", "User", null, "demo" },
+                    { new Guid("44444444-4444-4444-4444-444444444444"), 0, "+90", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "nadircandegirmendere@gmail.com", "Nadir can", new byte[] { 12, 231, 133, 31, 220, 48, 138, 98, 2, 110, 31, 93, 58, 77, 114, 139, 58, 74, 129, 93, 9, 250, 96, 52, 136, 102, 135, 245, 109, 221, 170, 5, 223, 23, 128, 184, 185, 178, 168, 160, 43, 40, 255, 102, 119, 94, 151, 111, 167, 81, 176, 19, 10, 138, 236, 2, 154, 135, 107, 174, 149, 97, 120, 107 }, new byte[] { 47, 28, 204, 238, 83, 176, 21, 156, 205, 239, 79, 147, 139, 41, 177, 65, 53, 1, 88, 190, 253, 186, 124, 227, 86, 2, 100, 241, 71, 218, 179, 2, 235, 25, 117, 1, 164, 131, 116, 94, 135, 3, 57, 213, 101, 201, 6, 164, 182, 152, 46, 61, 16, 111, 123, 51, 216, 248, 68, 177, 250, 169, 122, 236, 211, 44, 45, 4, 112, 44, 82, 180, 53, 202, 88, 247, 25, 28, 140, 173, 100, 177, 123, 150, 244, 2, 238, 17, 219, 69, 100, 243, 251, 236, 216, 177, 150, 57, 66, 177, 135, 182, 221, 249, 41, 196, 236, 185, 226, 187, 33, 247, 66, 179, 118, 41, 251, 0, 142, 154, 10, 34, 227, 180, 114, 54, 3, 54 }, "5555555558", "Degirmendere", null, "cansnow" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserOperationClaims",
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, new Guid("00000000-0000-0000-0000-000000000001"), null, new Guid("11111111-1111-1111-1111-111111111111") },
+                    { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, new Guid("00000000-0000-0000-0000-000000000002"), null, new Guid("22222222-2222-2222-2222-222222222222") },
+                    { new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, new Guid("00000000-0000-0000-0000-000000000003"), null, new Guid("33333333-3333-3333-3333-333333333333") }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailAuthenticators_UserId",
+                table: "EmailAuthenticators",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtpAuthenticators_UserId",
+                table: "OtpAuthenticators",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserImages_UserId",
+                table: "UserImages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_OperationClaimId",
+                table: "UserOperationClaims",
+                column: "OperationClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOperationClaims_UserId",
+                table: "UserOperationClaims",
+                column: "UserId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "EmailAuthenticators");
+
+            migrationBuilder.DropTable(
+                name: "OtpAuthenticators");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
+                name: "UserImages");
+
+            migrationBuilder.DropTable(
+                name: "UserOperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "OperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -15,6 +15,7 @@ public class BaseDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+    public DbSet<UserImage> UserImages { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
@@ -39,6 +40,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var properties = entityType.GetProperties().Where(p => p.ClrType == typeof(DateTime));
+            
 
             foreach (var property in properties)
             {

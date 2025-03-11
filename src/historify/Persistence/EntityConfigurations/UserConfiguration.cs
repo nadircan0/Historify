@@ -39,57 +39,76 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public static Guid DemoUserId { get; } = new Guid("33333333-3333-3333-3333-333333333333");
 
     // Yeni Admin (Kaan)
-    public static Guid KaanAdminId { get; } = new Guid("44444444-4444-4444-4444-444444444444");
+    public static Guid NadirAdminId { get; } = new Guid("44444444-4444-4444-4444-444444444444");
 
     private IEnumerable<User> GetSeeds()
     {
-        // // 1) Admin Kullanıcı
-        // HashingHelper.CreatePasswordHash("AdminPass123!", out byte[] adminHash, out byte[] adminSalt);
-        // yield return new User
-        // {
-        //     Id = AdminId,
-        //     Email = "admin@domain.com",
-        //     PasswordHash = adminHash,
-        //     PasswordSalt = adminSalt,
-        //     AuthenticatorType = 0,
-        //     CreatedDate = new DateTime(2024, 1, 1)
-        // };
+        // 1) Admin Kullanıcı
+        HashingHelper.CreatePasswordHash("AdminPass123!", out byte[] adminHash, out byte[] adminSalt);
+        yield return new User
+        {
+            Id = AdminId,
+            Email = "admin@domain.com",
+            PasswordHash = adminHash,
+            PasswordSalt = adminSalt,
+            AuthenticatorType = 0,
+            CreatedDate = new DateTime(2024, 1, 1),
+            Name = "Admin",
+            Surname = "User",
+            UserName = "admin",
+            CountryCode = "+90",
+            PhoneNumber = "5555555555"
+        };
 
-        // // 2) Standard User
-        // HashingHelper.CreatePasswordHash("UserPass123!", out byte[] userHash, out byte[] userSalt);
-        // yield return new User
-        // {
-        //     Id = UserId,
-        //     Email = "user@domain.com",
-        //     PasswordHash = userHash,
-        //     PasswordSalt = userSalt,
-        //     AuthenticatorType = 0,
-        //     CreatedDate = new DateTime(2024, 1, 1)
-        // };
+        // 2) Standard User
+        HashingHelper.CreatePasswordHash("UserPass123!", out byte[] userHash, out byte[] userSalt);
+        yield return new User
+        {
+            Id = UserId,
+            Email = "user@domain.com",
+            PasswordHash = userHash,
+            PasswordSalt = userSalt,
+            AuthenticatorType = 0,
+            CreatedDate = new DateTime(2024, 1, 1),
+            Name = "Standard",
+            Surname = "User",
+            UserName = "user",
+            CountryCode = "+90",
+            PhoneNumber = "5555555556"
+        };
 
-        // // 3) Demo User
-        // HashingHelper.CreatePasswordHash("DemoPass123!", out byte[] demoHash, out byte[] demoSalt);
-        // yield return new User
-        // {
-        //     Id = DemoUserId,
-        //     Email = "demo@domain.com",
-        //     PasswordHash = demoHash,
-        //     PasswordSalt = demoSalt,
-        //     AuthenticatorType = 0,
-        //     CreatedDate = new DateTime(2024, 1, 1)
-        // };
+        // 3) Demo User
+        HashingHelper.CreatePasswordHash("DemoPass123!", out byte[] demoHash, out byte[] demoSalt);
+        yield return new User
+        {
+            Id = DemoUserId,
+            Email = "demo@domain.com",
+            PasswordHash = demoHash,
+            PasswordSalt = demoSalt,
+            AuthenticatorType = 0,
+            CreatedDate = new DateTime(2024, 1, 1),
+            Name = "Demo",
+            Surname = "User",
+            UserName = "demo",
+            CountryCode = "+90",
+            PhoneNumber = "5555555557"
+        };
 
-        // // 4) Yeni Admin (kaanyigitkocak@gmail.com)
-        // HashingHelper.CreatePasswordHash("KaanPass123!", out byte[] kaanHash, out byte[] kaanSalt);
-        // yield return new User
-        // {
-        //     Id = KaanAdminId,
-        //     Email = "kaanyigitkocak@gmail.com",
-        //     PasswordHash = kaanHash,
-        //     PasswordSalt = kaanSalt,
-        //     AuthenticatorType = 0, // 0 = None, dilerseniz "AuthenticatorType.Email" vb.
-        //     CreatedDate = new DateTime(2025, 1, 1)
-        // };
-        return null;
+       // 4) Yeni Admin (nadircandegirmendere@gmail.com)
+        HashingHelper.CreatePasswordHash("NadirPass123!", out byte[] nadirHash, out byte[] nadirSalt);
+        yield return new User
+        {
+            Id = NadirAdminId,
+            Email = "nadircandegirmendere@gmail.com",
+            PasswordHash = nadirHash,
+            PasswordSalt = nadirSalt,
+            AuthenticatorType = 0,
+            CreatedDate = new DateTime(2025, 1, 1),
+            Name = "Nadir can",
+            Surname = "Degirmendere",
+            UserName = "cansnow",
+            CountryCode = "+90",
+            PhoneNumber = "5555555558"
+        };
     }
 }

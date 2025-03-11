@@ -6,5 +6,5 @@ public class UpdatedUserOperationClaimResponse : IResponse
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    public int OperationClaimId { get; set; }
+    public Guid OperationClaimId { get; set; }
 }

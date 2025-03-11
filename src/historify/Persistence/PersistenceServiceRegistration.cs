@@ -12,8 +12,9 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<BaseDbContext>(options => options.UseInMemoryDatabase("BaseDb"));
-        services.AddDbMigrationApplier(buildServices => buildServices.GetRequiredService<BaseDbContext>());
+services.AddDbContext<BaseDbContext>(options => 
+            options.UseNpgsql(configuration.GetConnectionString("BaseDatabase")));
+                    services.AddDbMigrationApplier(buildServices => buildServices.GetRequiredService<BaseDbContext>());
 
         services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();
         services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();

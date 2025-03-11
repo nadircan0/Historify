@@ -59,7 +59,7 @@ public static class ApplicationServiceRegistration
 
         services.AddYamlResourceLocalization();
 
-        services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
+        services.AddSecurityServices<Guid, Guid, Guid>(tokenOptions);
 
         return services;
     }

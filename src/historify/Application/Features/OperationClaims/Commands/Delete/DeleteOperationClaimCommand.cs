@@ -11,7 +11,7 @@ namespace Application.Features.OperationClaims.Commands.Delete;
 
 public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimResponse>, ISecuredRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string[] Roles => new[] { Admin, Write, OperationClaimsOperationClaims.Delete };
 

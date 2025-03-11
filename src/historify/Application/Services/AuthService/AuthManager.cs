@@ -10,7 +10,7 @@ namespace Application.Services.AuthService;
 public class AuthManager : IAuthService
 {
     private readonly IRefreshTokenRepository _refreshTokenRepository;
-    private readonly ITokenHelper<Guid, int, Guid> _tokenHelper;
+    private readonly ITokenHelper<Guid, Guid, Guid> _tokenHelper;
     private readonly TokenOptions _tokenOptions;
     private readonly IUserOperationClaimRepository _userOperationClaimRepository;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class AuthManager : IAuthService
     public AuthManager(
         IUserOperationClaimRepository userOperationClaimRepository,
         IRefreshTokenRepository refreshTokenRepository,
-        ITokenHelper<Guid, int, Guid> tokenHelper,
+        ITokenHelper<Guid, Guid, Guid> tokenHelper,
         IConfiguration configuration,
         IMapper mapper
     )
@@ -39,7 +39,7 @@ public class AuthManager : IAuthService
         IList<OperationClaim> operationClaims = await _userOperationClaimRepository.GetOperationClaimsByUserIdAsync(user.Id);
         AccessToken accessToken = _tokenHelper.CreateToken(
             user,
-            operationClaims.Select(op => (NArchitecture.Core.Security.Entities.OperationClaim<int>)op).ToImmutableList()
+            operationClaims.Select(op => (NArchitecture.Core.Security.Entities.OperationClaim<Guid>)op).ToImmutableList()
         );
         return accessToken;
     }

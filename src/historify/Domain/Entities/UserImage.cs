@@ -9,6 +9,6 @@ public class UserImage : Entity<Guid>
     public DateTime UploadDate { get; set; } = DateTime.Now;
     public string? Tags { get; set; }
     public virtual FileAttachment FileAttachment { get; set; } = default!;
-    public Guid FileAttachmentId { get; set; }
+
 
 } 

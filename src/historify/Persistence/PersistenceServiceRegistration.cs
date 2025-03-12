@@ -24,6 +24,7 @@ services.AddDbContext<BaseDbContext>(options =>
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
 services.AddScoped<IUserImageRepository, UserImageRepository>();
+services.AddScoped<IFileAttachmentRepository, FileAttachmentRepository>();
         return services;
     }
 }

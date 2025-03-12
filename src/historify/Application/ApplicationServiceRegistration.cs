@@ -21,6 +21,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 using Application.Services.UserImages;
+using Application.Services.FileAttachments;
 
 namespace Application;
 
@@ -63,6 +64,7 @@ public static class ApplicationServiceRegistration
         services.AddSecurityServices<Guid, Guid, Guid>(tokenOptions);
 
         services.AddScoped<IUserImageService, UserImageManager>();
+        services.AddScoped<IFileAttachmentService, FileAttachmentManager>();
         return services;
     }
 

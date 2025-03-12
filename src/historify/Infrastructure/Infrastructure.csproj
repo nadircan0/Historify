@@ -17,4 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Storage/Local/" />
+  </ItemGroup>
 </Project>

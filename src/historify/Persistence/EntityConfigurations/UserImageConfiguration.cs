@@ -11,7 +11,6 @@ public class UserImageConfiguration : IEntityTypeConfiguration<UserImage>
         builder.ToTable("UserImages").HasKey(ui => ui.Id);
 
         builder.Property(ui => ui.Id).HasColumnName("Id").IsRequired();
-        builder.Property(ui => ui.FileAttachmentId).HasColumnName("FileAttachmentId").IsRequired();
         builder.Property(ui => ui.Description).HasColumnName("Description").IsRequired();
         builder.Property(ui => ui.UploadDate).HasColumnName("UploadDate").IsRequired();
         builder.Property(ui => ui.Tags).HasColumnName("Tags");

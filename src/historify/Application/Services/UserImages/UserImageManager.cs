@@ -30,7 +30,7 @@ public class UserImageManager : IUserImageService
         return userImage;
     }
 
-    public async Task<IPaginate<UserImage>?> GetListAsync(
+     public async Task<IPaginate<UserImage>?> GetListAsync(
         Expression<Func<UserImage, bool>>? predicate = null,
         Func<IQueryable<UserImage>, IOrderedQueryable<UserImage>>? orderBy = null,
         Func<IQueryable<UserImage>, IIncludableQueryable<UserImage, object>>? include = null,

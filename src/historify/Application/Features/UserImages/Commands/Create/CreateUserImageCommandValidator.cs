@@ -6,10 +6,8 @@ public class CreateUserImageCommandValidator : AbstractValidator<CreateUserImage
 {
     public CreateUserImageCommandValidator()
     {
-        RuleFor(c => c.UserId).NotEmpty();
-        RuleFor(c => c.ImagePath).NotEmpty();
+        RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Description).NotEmpty();
         RuleFor(c => c.UploadDate).NotEmpty();
-        RuleFor(c => c.StorageType).NotEmpty();
     }
 }

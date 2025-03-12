@@ -9,12 +9,10 @@ namespace Application.Features.UserImages.Commands.Update;
 public class UpdateUserImageCommand : IRequest<UpdatedUserImageResponse>
 {
     public Guid Id { get; set; }
-    public required Guid UserId { get; set; }
-    public required string ImagePath { get; set; }
     public required string Description { get; set; }
     public required DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
-    public required string StorageType { get; set; }
+
 
     public class UpdateUserImageCommandHandler : IRequestHandler<UpdateUserImageCommand, UpdatedUserImageResponse>
     {

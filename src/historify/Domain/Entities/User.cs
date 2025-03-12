@@ -16,5 +16,5 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;
     public virtual ICollection<EmailAuthenticator> EmailAuthenticators { get; set; } = default!;
     
-    public virtual ICollection<UserImage> UserImages { get; set; } = new HashSet<UserImage>();
+    public virtual ICollection<FileAttachment> FileAttachments { get; set; } = new HashSet<FileAttachment>();
 }

@@ -11,12 +11,10 @@ public class UserImageConfiguration : IEntityTypeConfiguration<UserImage>
         builder.ToTable("UserImages").HasKey(ui => ui.Id);
 
         builder.Property(ui => ui.Id).HasColumnName("Id").IsRequired();
-        builder.Property(ui => ui.UserId).HasColumnName("UserId").IsRequired();
-        builder.Property(ui => ui.ImagePath).HasColumnName("ImagePath").IsRequired();
+        builder.Property(ui => ui.FileAttachmentId).HasColumnName("FileAttachmentId").IsRequired();
         builder.Property(ui => ui.Description).HasColumnName("Description").IsRequired();
         builder.Property(ui => ui.UploadDate).HasColumnName("UploadDate").IsRequired();
         builder.Property(ui => ui.Tags).HasColumnName("Tags");
-        builder.Property(ui => ui.StorageType).HasColumnName("StorageType").IsRequired();
         builder.Property(ui => ui.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(ui => ui.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ui => ui.DeletedDate).HasColumnName("DeletedDate");

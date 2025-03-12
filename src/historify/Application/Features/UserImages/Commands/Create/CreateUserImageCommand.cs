@@ -8,12 +8,10 @@ namespace Application.Features.UserImages.Commands.Create;
 
 public class CreateUserImageCommand : IRequest<CreatedUserImageResponse>
 {
-    public required Guid UserId { get; set; }
-    public required string ImagePath { get; set; }
+    public required Guid Id { get; set; }
     public required string Description { get; set; }
     public required DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
-    public required string StorageType { get; set; }
 
     public class CreateUserImageCommandHandler : IRequestHandler<CreateUserImageCommand, CreatedUserImageResponse>
     {

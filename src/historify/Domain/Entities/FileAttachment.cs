@@ -16,6 +16,6 @@ public class FileAttachment: Entity<Guid>
     public virtual User? User { get; set; }
 
 
-    //TODO: add a crud operations for file attachments/ setup a table for file attachments / setup nArchgen
+
 
 }

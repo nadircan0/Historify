@@ -3,17 +3,17 @@ using NArchitecture.Core.Test.Application.FakeData;
 
 namespace StarterProject.Application.Tests.Mocks.FakeDatas;
 
-public class OperationClaimFakeData : BaseFakeData<OperationClaim, int>
+public class OperationClaimFakeData : BaseFakeData<OperationClaim, Guid>
 {
     public override List<OperationClaim> CreateFakeData()
     {
         return
         [
-            new() { Id = 1, Name = "Admin" },
-            new() { Id = 2, Name = "Example.Create" },
-            new() { Id = 3, Name = "Example.Delete" },
-            new() { Id = 4, Name = "Example.Update" },
-            new() { Id = 5, Name = "Moderator" },
+            new() { Id = Guid.NewGuid(), Name = "Admin" },
+            new() { Id = Guid.NewGuid(), Name = "Example.Create" },
+            new() { Id = Guid.NewGuid(), Name = "Example.Delete" },
+            new() { Id = Guid.NewGuid(), Name = "Example.Update" },
+            new() { Id = Guid.NewGuid(), Name = "Moderator" },
         ];
     }
 }

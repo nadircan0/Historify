@@ -15,6 +15,10 @@ tab_width = 4
 end_of_line = crlf
 insert_final_newline = false
 
+# Dosya sonuna newline eklenmesini sağlar
+[*]
+insert_final_newline = true
+
 #### .NET Coding Conventions ####
 
 # Organize usings

@@ -8,5 +8,4 @@ public class GetListUserImageListItemDto : IDto
     public string Description { get; set; }
     public DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
-
 }

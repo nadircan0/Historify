@@ -2,8 +2,8 @@ namespace Infrastructure.Operations
 {
     public static class NameOperation
     {
-        public static string CharacterRegulatory(string name)
-            => name.Replace("\"", "")
+        public static string CharacterRegulatory(string name) =>
+            name.Replace("\"", "")
                 .Replace("!", "")
                 .Replace("'", "")
                 .Replace("^", "")

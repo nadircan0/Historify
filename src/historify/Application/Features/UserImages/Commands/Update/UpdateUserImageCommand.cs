@@ -13,15 +13,17 @@ public class UpdateUserImageCommand : IRequest<UpdatedUserImageResponse>
     public required DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
 
-
     public class UpdateUserImageCommandHandler : IRequestHandler<UpdateUserImageCommand, UpdatedUserImageResponse>
     {
         private readonly IMapper _mapper;
         private readonly IUserImageRepository _userImageRepository;
         private readonly UserImageBusinessRules _userImageBusinessRules;
 
-        public UpdateUserImageCommandHandler(IMapper mapper, IUserImageRepository userImageRepository,
-                                         UserImageBusinessRules userImageBusinessRules)
+        public UpdateUserImageCommandHandler(
+            IMapper mapper,
+            IUserImageRepository userImageRepository,
+            UserImageBusinessRules userImageBusinessRules
+        )
         {
             _mapper = mapper;
             _userImageRepository = userImageRepository;
@@ -30,7 +32,10 @@ public class UpdateUserImageCommand : IRequest<UpdatedUserImageResponse>
 
         public async Task<UpdatedUserImageResponse> Handle(UpdateUserImageCommand request, CancellationToken cancellationToken)
         {
-            UserImage? userImage = await _userImageRepository.GetAsync(predicate: ui => ui.Id == request.Id, cancellationToken: cancellationToken);
+            UserImage? userImage = await _userImageRepository.GetAsync(
+                predicate: ui => ui.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _userImageBusinessRules.UserImageShouldExistWhenSelected(userImage);
             userImage = _mapper.Map(request, userImage);
 

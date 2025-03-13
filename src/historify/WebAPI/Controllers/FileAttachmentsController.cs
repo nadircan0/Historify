@@ -50,7 +50,9 @@ public class FileAttachmentsController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult<GetListResponse<GetListFileAttachmentListItemDto>>> GetList([FromQuery] PageRequest pageRequest)
+    public async Task<ActionResult<GetListResponse<GetListFileAttachmentListItemDto>>> GetList(
+        [FromQuery] PageRequest pageRequest
+    )
     {
         GetListFileAttachmentQuery query = new() { PageRequest = pageRequest };
 

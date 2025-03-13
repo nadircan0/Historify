@@ -21,17 +21,26 @@ public class UpdateFileAttachmentCommand : IRequest<UpdatedFileAttachmentRespons
         private readonly IFileAttachmentRepository _fileAttachmentRepository;
         private readonly FileAttachmentBusinessRules _fileAttachmentBusinessRules;
 
-        public UpdateFileAttachmentCommandHandler(IMapper mapper, IFileAttachmentRepository fileAttachmentRepository,
-                                         FileAttachmentBusinessRules fileAttachmentBusinessRules)
+        public UpdateFileAttachmentCommandHandler(
+            IMapper mapper,
+            IFileAttachmentRepository fileAttachmentRepository,
+            FileAttachmentBusinessRules fileAttachmentBusinessRules
+        )
         {
             _mapper = mapper;
             _fileAttachmentRepository = fileAttachmentRepository;
             _fileAttachmentBusinessRules = fileAttachmentBusinessRules;
         }
 
-        public async Task<UpdatedFileAttachmentResponse> Handle(UpdateFileAttachmentCommand request, CancellationToken cancellationToken)
+        public async Task<UpdatedFileAttachmentResponse> Handle(
+            UpdateFileAttachmentCommand request,
+            CancellationToken cancellationToken
+        )
         {
-            FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(predicate: fa => fa.Id == request.Id, cancellationToken: cancellationToken);
+            FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(
+                predicate: fa => fa.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _fileAttachmentBusinessRules.FileAttachmentShouldExistWhenSelected(fileAttachment);
             fileAttachment = _mapper.Map(request, fileAttachment);
 

@@ -1,10 +1,17 @@
 using Infrastructure.Operations;
+
 namespace Historify.Infrastructure.Storage;
 
 public class BaseStorage
 {
     protected delegate bool HasFile(string pathOrContainerName, string fileName);
-    protected async Task<string> FileRenameAsync(string pathOrContainerName, string fileName, HasFile hasFileMethod, bool first = true)
+
+    protected async Task<string> FileRenameAsync(
+        string pathOrContainerName,
+        string fileName,
+        HasFile hasFileMethod,
+        bool first = true
+    )
     {
         string newFileName = await Task.Run<string>(async () =>
         {
@@ -41,8 +48,9 @@ public class BaseStorage
                     if (int.TryParse(fileNo, out int _fileNo))
                     {
                         _fileNo++;
-                        newFileName = newFileName.Remove(indexNo1 + 1, indexNo2 - indexNo1 - 1)
-                                            .Insert(indexNo1 + 1, _fileNo.ToString());
+                        newFileName = newFileName
+                            .Remove(indexNo1 + 1, indexNo2 - indexNo1 - 1)
+                            .Insert(indexNo1 + 1, _fileNo.ToString());
                     }
                     else
                         newFileName = $"{Path.GetFileNameWithoutExtension(newFileName)}-2{extension}";

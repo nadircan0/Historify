@@ -7,6 +7,6 @@ namespace Persistence.Repositories;
 
 public class FileAttachmentRepository : EfRepositoryBase<FileAttachment, Guid, BaseDbContext>, IFileAttachmentRepository
 {
-    public FileAttachmentRepository(BaseDbContext context) 
-    : base(context){}
+    public FileAttachmentRepository(BaseDbContext context)
+        : base(context) { }
 }

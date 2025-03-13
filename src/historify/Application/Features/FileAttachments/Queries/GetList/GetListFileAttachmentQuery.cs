@@ -12,7 +12,8 @@ public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAt
 {
     public PageRequest PageRequest { get; set; }
 
-    public class GetListFileAttachmentQueryHandler : IRequestHandler<GetListFileAttachmentQuery, GetListResponse<GetListFileAttachmentListItemDto>>
+    public class GetListFileAttachmentQueryHandler
+        : IRequestHandler<GetListFileAttachmentQuery, GetListResponse<GetListFileAttachmentListItemDto>>
     {
         private readonly IFileAttachmentRepository _fileAttachmentRepository;
         private readonly IMapper _mapper;
@@ -23,7 +24,10 @@ public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAt
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListFileAttachmentListItemDto>> Handle(GetListFileAttachmentQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListFileAttachmentListItemDto>> Handle(
+            GetListFileAttachmentQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<FileAttachment> fileAttachments = await _fileAttachmentRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
@@ -31,7 +35,9 @@ public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAt
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListFileAttachmentListItemDto> response = _mapper.Map<GetListResponse<GetListFileAttachmentListItemDto>>(fileAttachments);
+            GetListResponse<GetListFileAttachmentListItemDto> response = _mapper.Map<
+                GetListResponse<GetListFileAttachmentListItemDto>
+            >(fileAttachments);
             return response;
         }
     }

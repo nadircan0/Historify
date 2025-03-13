@@ -20,15 +20,21 @@ public class CreateFileAttachmentCommand : IRequest<CreatedFileAttachmentRespons
         private readonly IFileAttachmentRepository _fileAttachmentRepository;
         private readonly FileAttachmentBusinessRules _fileAttachmentBusinessRules;
 
-        public CreateFileAttachmentCommandHandler(IMapper mapper, IFileAttachmentRepository fileAttachmentRepository,
-                                         FileAttachmentBusinessRules fileAttachmentBusinessRules)
+        public CreateFileAttachmentCommandHandler(
+            IMapper mapper,
+            IFileAttachmentRepository fileAttachmentRepository,
+            FileAttachmentBusinessRules fileAttachmentBusinessRules
+        )
         {
             _mapper = mapper;
             _fileAttachmentRepository = fileAttachmentRepository;
             _fileAttachmentBusinessRules = fileAttachmentBusinessRules;
         }
 
-        public async Task<CreatedFileAttachmentResponse> Handle(CreateFileAttachmentCommand request, CancellationToken cancellationToken)
+        public async Task<CreatedFileAttachmentResponse> Handle(
+            CreateFileAttachmentCommand request,
+            CancellationToken cancellationToken
+        )
         {
             FileAttachment fileAttachment = _mapper.Map<FileAttachment>(request);
 

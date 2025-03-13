@@ -1,8 +1,8 @@
+using System.Reflection;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 
 namespace Persistence.Contexts;
 
@@ -28,8 +28,6 @@ public class BaseDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
-
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var properties = entityType.GetProperties().Where(p => p.ClrType == typeof(Guid));
@@ -41,8 +39,6 @@ public class BaseDbContext : DbContext
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var properties = entityType.GetProperties().Where(p => p.ClrType == typeof(DateTime));
-
-
 
             foreach (var property in properties)
             {

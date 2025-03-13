@@ -17,17 +17,26 @@ public class DeleteFileAttachmentCommand : IRequest<DeletedFileAttachmentRespons
         private readonly IFileAttachmentRepository _fileAttachmentRepository;
         private readonly FileAttachmentBusinessRules _fileAttachmentBusinessRules;
 
-        public DeleteFileAttachmentCommandHandler(IMapper mapper, IFileAttachmentRepository fileAttachmentRepository,
-                                         FileAttachmentBusinessRules fileAttachmentBusinessRules)
+        public DeleteFileAttachmentCommandHandler(
+            IMapper mapper,
+            IFileAttachmentRepository fileAttachmentRepository,
+            FileAttachmentBusinessRules fileAttachmentBusinessRules
+        )
         {
             _mapper = mapper;
             _fileAttachmentRepository = fileAttachmentRepository;
             _fileAttachmentBusinessRules = fileAttachmentBusinessRules;
         }
 
-        public async Task<DeletedFileAttachmentResponse> Handle(DeleteFileAttachmentCommand request, CancellationToken cancellationToken)
+        public async Task<DeletedFileAttachmentResponse> Handle(
+            DeleteFileAttachmentCommand request,
+            CancellationToken cancellationToken
+        )
         {
-            FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(predicate: fa => fa.Id == request.Id, cancellationToken: cancellationToken);
+            FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(
+                predicate: fa => fa.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _fileAttachmentBusinessRules.FileAttachmentShouldExistWhenSelected(fileAttachment);
 
             await _fileAttachmentRepository.DeleteAsync(fileAttachment!);

@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class UserImageRepository : EfRepositoryBase<UserImage, Guid, BaseDbContext>, IUserImageRepository
 {
-    public UserImageRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public UserImageRepository(BaseDbContext context)
+        : base(context) { }
 }

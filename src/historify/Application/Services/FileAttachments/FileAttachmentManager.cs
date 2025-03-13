@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.FileAttachments.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
-using System.Linq.Expressions;
 
 namespace Application.Services.FileAttachments;
 
@@ -12,7 +12,10 @@ public class FileAttachmentManager : IFileAttachmentService
     private readonly IFileAttachmentRepository _fileAttachmentRepository;
     private readonly FileAttachmentBusinessRules _fileAttachmentBusinessRules;
 
-    public FileAttachmentManager(IFileAttachmentRepository fileAttachmentRepository, FileAttachmentBusinessRules fileAttachmentBusinessRules)
+    public FileAttachmentManager(
+        IFileAttachmentRepository fileAttachmentRepository,
+        FileAttachmentBusinessRules fileAttachmentBusinessRules
+    )
     {
         _fileAttachmentRepository = fileAttachmentRepository;
         _fileAttachmentBusinessRules = fileAttachmentBusinessRules;
@@ -26,7 +29,13 @@ public class FileAttachmentManager : IFileAttachmentService
         CancellationToken cancellationToken = default
     )
     {
-        FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return fileAttachment;
     }
 

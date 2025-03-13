@@ -31,7 +31,15 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>, ISecuredRequest
         PhoneNumber = string.Empty;
     }
 
-    public CreateUserCommand(string email, string password, string name, string surname, string userName, string countryCode, string phoneNumber)
+    public CreateUserCommand(
+        string email,
+        string password,
+        string name,
+        string surname,
+        string userName,
+        string countryCode,
+        string phoneNumber
+    )
     {
         Email = email;
         Password = password;

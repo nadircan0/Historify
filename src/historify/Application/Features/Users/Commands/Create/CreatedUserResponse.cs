@@ -20,10 +20,17 @@ public class CreatedUserResponse : IResponse
         UserName = string.Empty;
         CountryCode = string.Empty;
         PhoneNumber = string.Empty;
-
     }
 
-    public CreatedUserResponse(Guid id, string email, string name, string surname, string userName, string countryCode, string phoneNumber)
+    public CreatedUserResponse(
+        Guid id,
+        string email,
+        string name,
+        string surname,
+        string userName,
+        string countryCode,
+        string phoneNumber
+    )
     {
         Id = id;
         Email = email;
@@ -32,6 +39,5 @@ public class CreatedUserResponse : IResponse
         UserName = userName;
         CountryCode = countryCode;
         PhoneNumber = phoneNumber;
-
     }
 }

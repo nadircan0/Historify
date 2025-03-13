@@ -17,8 +17,11 @@ public class DeleteUserImageCommand : IRequest<DeletedUserImageResponse>
         private readonly IUserImageRepository _userImageRepository;
         private readonly UserImageBusinessRules _userImageBusinessRules;
 
-        public DeleteUserImageCommandHandler(IMapper mapper, IUserImageRepository userImageRepository,
-                                         UserImageBusinessRules userImageBusinessRules)
+        public DeleteUserImageCommandHandler(
+            IMapper mapper,
+            IUserImageRepository userImageRepository,
+            UserImageBusinessRules userImageBusinessRules
+        )
         {
             _mapper = mapper;
             _userImageRepository = userImageRepository;
@@ -27,7 +30,10 @@ public class DeleteUserImageCommand : IRequest<DeletedUserImageResponse>
 
         public async Task<DeletedUserImageResponse> Handle(DeleteUserImageCommand request, CancellationToken cancellationToken)
         {
-            UserImage? userImage = await _userImageRepository.GetAsync(predicate: ui => ui.Id == request.Id, cancellationToken: cancellationToken);
+            UserImage? userImage = await _userImageRepository.GetAsync(
+                predicate: ui => ui.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _userImageBusinessRules.UserImageShouldExistWhenSelected(userImage);
 
             await _userImageRepository.DeleteAsync(userImage!);

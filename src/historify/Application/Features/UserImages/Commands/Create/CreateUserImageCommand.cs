@@ -19,8 +19,11 @@ public class CreateUserImageCommand : IRequest<CreatedUserImageResponse>
         private readonly IUserImageRepository _userImageRepository;
         private readonly UserImageBusinessRules _userImageBusinessRules;
 
-        public CreateUserImageCommandHandler(IMapper mapper, IUserImageRepository userImageRepository,
-                                         UserImageBusinessRules userImageBusinessRules)
+        public CreateUserImageCommandHandler(
+            IMapper mapper,
+            IUserImageRepository userImageRepository,
+            UserImageBusinessRules userImageBusinessRules
+        )
         {
             _mapper = mapper;
             _userImageRepository = userImageRepository;

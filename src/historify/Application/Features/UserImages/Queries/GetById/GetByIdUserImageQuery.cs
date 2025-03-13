@@ -16,7 +16,11 @@ public class GetByIdUserImageQuery : IRequest<GetByIdUserImageResponse>
         private readonly IUserImageRepository _userImageRepository;
         private readonly UserImageBusinessRules _userImageBusinessRules;
 
-        public GetByIdUserImageQueryHandler(IMapper mapper, IUserImageRepository userImageRepository, UserImageBusinessRules userImageBusinessRules)
+        public GetByIdUserImageQueryHandler(
+            IMapper mapper,
+            IUserImageRepository userImageRepository,
+            UserImageBusinessRules userImageBusinessRules
+        )
         {
             _mapper = mapper;
             _userImageRepository = userImageRepository;
@@ -25,7 +29,10 @@ public class GetByIdUserImageQuery : IRequest<GetByIdUserImageResponse>
 
         public async Task<GetByIdUserImageResponse> Handle(GetByIdUserImageQuery request, CancellationToken cancellationToken)
         {
-            UserImage? userImage = await _userImageRepository.GetAsync(predicate: ui => ui.Id == request.Id, cancellationToken: cancellationToken);
+            UserImage? userImage = await _userImageRepository.GetAsync(
+                predicate: ui => ui.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _userImageBusinessRules.UserImageShouldExistWhenSelected(userImage);
 
             GetByIdUserImageResponse response = _mapper.Map<GetByIdUserImageResponse>(userImage);

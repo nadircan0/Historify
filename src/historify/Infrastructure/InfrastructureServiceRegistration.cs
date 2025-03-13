@@ -14,13 +14,12 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ImageServiceBase, CloudinaryImageServiceAdapter>();
         services.AddScoped<IStorageService, StorageManager>();
 
-
         return services;
     }
-    public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : BaseStorage, IStorage
+
+    public static void AddStorage<T>(this IServiceCollection serviceCollection)
+        where T : BaseStorage, IStorage
     {
         serviceCollection.AddScoped<IStorage, T>();
     }
-
-
 }

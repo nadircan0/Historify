@@ -3,6 +3,4 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IUserImageRepository : IAsyncRepository<UserImage, Guid>, IRepository<UserImage, Guid>
-{
-}
+public interface IUserImageRepository : IAsyncRepository<UserImage, Guid>, IRepository<UserImage, Guid> { }

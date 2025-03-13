@@ -8,5 +8,4 @@ public class UpdatedUserImageResponse : IResponse
     public string Description { get; set; }
     public DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
-
 }

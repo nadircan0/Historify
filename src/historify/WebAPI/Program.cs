@@ -38,8 +38,6 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddStorage<AzureStorageManager>();
 
-
-
 const string tokenOptionsConfigurationSection = "TokenOptions";
 TokenOptions tokenOptions =
     builder.Configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()

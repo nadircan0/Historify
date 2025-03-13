@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Hashing;
 using Persistence.EntityConfigurations;
+
 public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOperationClaim>
 {
     public void Configure(EntityTypeBuilder<UserOperationClaim> builder)
@@ -21,13 +22,9 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
         builder.HasQueryFilter(uoc => !uoc.DeletedDate.HasValue);
 
         // Relationships
-        builder.HasOne(uoc => uoc.User)
-               .WithMany(u => u.UserOperationClaims)
-               .HasForeignKey(uoc => uoc.UserId);
+        builder.HasOne(uoc => uoc.User).WithMany(u => u.UserOperationClaims).HasForeignKey(uoc => uoc.UserId);
 
-        builder.HasOne(uoc => uoc.OperationClaim)
-               .WithMany()
-               .HasForeignKey(uoc => uoc.OperationClaimId);
+        builder.HasOne(uoc => uoc.OperationClaim).WithMany().HasForeignKey(uoc => uoc.OperationClaimId);
 
         // Seed data
         builder.HasData(GetSeeds());

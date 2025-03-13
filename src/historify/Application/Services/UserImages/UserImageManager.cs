@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.UserImages.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
-using System.Linq.Expressions;
 
 namespace Application.Services.UserImages;
 
@@ -26,20 +26,26 @@ public class UserImageManager : IUserImageService
         CancellationToken cancellationToken = default
     )
     {
-        UserImage? userImage = await _userImageRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        UserImage? userImage = await _userImageRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return userImage;
     }
 
     public async Task<IPaginate<UserImage>?> GetListAsync(
-       Expression<Func<UserImage, bool>>? predicate = null,
-       Func<IQueryable<UserImage>, IOrderedQueryable<UserImage>>? orderBy = null,
-       Func<IQueryable<UserImage>, IIncludableQueryable<UserImage, object>>? include = null,
-       int index = 0,
-       int size = 10,
-       bool withDeleted = false,
-       bool enableTracking = true,
-       CancellationToken cancellationToken = default
-   )
+        Expression<Func<UserImage, bool>>? predicate = null,
+        Func<IQueryable<UserImage>, IOrderedQueryable<UserImage>>? orderBy = null,
+        Func<IQueryable<UserImage>, IIncludableQueryable<UserImage, object>>? include = null,
+        int index = 0,
+        int size = 10,
+        bool withDeleted = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default
+    )
     {
         IPaginate<UserImage> userImageList = await _userImageRepository.GetListAsync(
             predicate,

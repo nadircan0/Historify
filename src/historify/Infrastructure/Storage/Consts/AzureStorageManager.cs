@@ -11,10 +11,12 @@ namespace Historify.Infrastructure.Services.Storage.Azure
     {
         readonly BlobServiceClient _blobServiceClient;
         BlobContainerClient _blobContainerClient;
+
         public AzureStorageManager(IConfiguration configuration)
         {
             _blobServiceClient = new(configuration["Storage:Azure"]);
         }
+
         public async Task DeleteAsync(string containerName, string fileName)
         {
             _blobContainerClient = _blobServiceClient.GetBlobContainerClient(containerName);
@@ -34,7 +36,10 @@ namespace Historify.Infrastructure.Services.Storage.Azure
             return _blobContainerClient.GetBlobs().Any(b => b.Name == fileName);
         }
 
-        public async Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string containerName, IFormFileCollection files)
+        public async Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(
+            string containerName,
+            IFormFileCollection files
+        )
         {
             _blobContainerClient = _blobServiceClient.GetBlobContainerClient(containerName);
             await _blobContainerClient.CreateIfNotExistsAsync();

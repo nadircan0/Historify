@@ -12,7 +12,10 @@ public class FileAttachmentBusinessRules : BaseBusinessRules
     private readonly IFileAttachmentRepository _fileAttachmentRepository;
     private readonly ILocalizationService _localizationService;
 
-    public FileAttachmentBusinessRules(IFileAttachmentRepository fileAttachmentRepository, ILocalizationService localizationService)
+    public FileAttachmentBusinessRules(
+        IFileAttachmentRepository fileAttachmentRepository,
+        ILocalizationService localizationService
+    )
     {
         _fileAttachmentRepository = fileAttachmentRepository;
         _localizationService = localizationService;

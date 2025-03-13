@@ -12,7 +12,8 @@ public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageLi
 {
     public PageRequest PageRequest { get; set; }
 
-    public class GetListUserImageQueryHandler : IRequestHandler<GetListUserImageQuery, GetListResponse<GetListUserImageListItemDto>>
+    public class GetListUserImageQueryHandler
+        : IRequestHandler<GetListUserImageQuery, GetListResponse<GetListUserImageListItemDto>>
     {
         private readonly IUserImageRepository _userImageRepository;
         private readonly IMapper _mapper;
@@ -23,7 +24,10 @@ public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageLi
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListUserImageListItemDto>> Handle(GetListUserImageQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListUserImageListItemDto>> Handle(
+            GetListUserImageQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<UserImage> userImages = await _userImageRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
@@ -31,7 +35,9 @@ public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageLi
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListUserImageListItemDto> response = _mapper.Map<GetListResponse<GetListUserImageListItemDto>>(userImages);
+            GetListResponse<GetListUserImageListItemDto> response = _mapper.Map<GetListResponse<GetListUserImageListItemDto>>(
+                userImages
+            );
             return response;
         }
     }

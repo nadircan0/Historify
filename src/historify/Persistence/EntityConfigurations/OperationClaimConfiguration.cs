@@ -15,23 +15,15 @@ namespace Persistence.EntityConfigurations
         {
             builder.ToTable("OperationClaims").HasKey(oc => oc.Id);
 
-            builder.Property(oc => oc.Id)
-                   .HasColumnName("Id")
-                   .IsRequired();
+            builder.Property(oc => oc.Id).HasColumnName("Id").IsRequired();
 
-            builder.Property(oc => oc.Name)
-                   .HasColumnName("Name")
-                   .IsRequired();
+            builder.Property(oc => oc.Name).HasColumnName("Name").IsRequired();
 
-            builder.Property(oc => oc.CreatedDate)
-                   .HasColumnName("CreatedDate")
-                   .IsRequired();
+            builder.Property(oc => oc.CreatedDate).HasColumnName("CreatedDate").IsRequired();
 
-            builder.Property(oc => oc.UpdatedDate)
-                   .HasColumnName("UpdatedDate");
+            builder.Property(oc => oc.UpdatedDate).HasColumnName("UpdatedDate");
 
-            builder.Property(oc => oc.DeletedDate)
-                   .HasColumnName("DeletedDate");
+            builder.Property(oc => oc.DeletedDate).HasColumnName("DeletedDate");
 
             // Global Query Filter to exclude soft-deleted records
             builder.HasQueryFilter(oc => !oc.DeletedDate.HasValue);

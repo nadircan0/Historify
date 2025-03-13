@@ -54,7 +54,7 @@ public class LoginTests
         #region Mock Helpers
         TokenOptions tokenOptions =
             _configuration.GetSection("TokenOptions").Get<TokenOptions>() ?? throw new Exception("Token options not found.");
-        ITokenHelper<Guid, int, Guid> tokenHelper = new JwtHelper<Guid, int, Guid>(tokenOptions);
+        ITokenHelper<Guid, Guid, Guid> tokenHelper = new JwtHelper<Guid, Guid, Guid>(tokenOptions);
         IEmailAuthenticatorHelper emailAuthenticatorHelper = new EmailAuthenticatorHelper();
         MailSettings mailSettings =
             _configuration.GetSection("MailSettings").Get<MailSettings>() ?? throw new Exception("Mail settings not found.");

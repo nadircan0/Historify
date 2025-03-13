@@ -1,5 +1,5 @@
-using NArchitecture.Core.Persistence.Repositories;
 using System;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
 
@@ -14,8 +14,4 @@ public class FileAttachment : Entity<Guid>
 
     public virtual UserImage? UserImage { get; set; }
     public virtual User? User { get; set; }
-
-    //
-
-
 }

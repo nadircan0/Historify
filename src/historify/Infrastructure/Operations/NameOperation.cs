@@ -1,5 +1,3 @@
-
-
 namespace Infrastructure.Operations
 {
     public static class NameOperation

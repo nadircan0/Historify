@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Entities;
 
-public class FileAttachment: Entity<Guid>
+public class FileAttachment : Entity<Guid>
 {
     public string FileName { get; set; }
     public string FilePath { get; set; }
@@ -15,7 +15,7 @@ public class FileAttachment: Entity<Guid>
     public virtual UserImage? UserImage { get; set; }
     public virtual User? User { get; set; }
 
-//
+    //
 
 
 }

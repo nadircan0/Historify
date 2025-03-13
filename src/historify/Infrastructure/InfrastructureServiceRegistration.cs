@@ -19,9 +19,9 @@ public static class InfrastructureServiceRegistration
         return services;
     }
     public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : BaseStorage, IStorage
-        {
-            serviceCollection.AddScoped<IStorage, T>();
-        }
+    {
+        serviceCollection.AddScoped<IStorage, T>();
+    }
 
 
 }

@@ -1,6 +1,7 @@
-using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
+using Application.Services.FileAttachments;
+using Application.Services.UserImages;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +21,7 @@ using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
-using Application.Services.UserImages;
-using Application.Services.FileAttachments;
+using System.Reflection;
 
 namespace Application;
 

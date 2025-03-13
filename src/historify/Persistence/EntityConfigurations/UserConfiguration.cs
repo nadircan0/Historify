@@ -94,7 +94,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             PhoneNumber = "5555555557"
         };
 
-       // 4) Yeni Admin (nadircandegirmendere@gmail.com)
+        // 4) Yeni Admin (nadircandegirmendere@gmail.com)
         HashingHelper.CreatePasswordHash("NadirPass123!", out byte[] nadirHash, out byte[] nadirSalt);
         yield return new User
         {

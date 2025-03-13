@@ -1,10 +1,10 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 
 namespace Application.Features.FileAttachments.Queries.GetList;
 
@@ -27,7 +27,7 @@ public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAt
         {
             IPaginate<FileAttachment> fileAttachments = await _fileAttachmentRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 

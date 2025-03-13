@@ -44,23 +44,23 @@ namespace Persistence.EntityConfigurations
         {
             return new List<OperationClaim>
             {
-                new OperationClaim 
-                { 
-                    Id = AdminId, 
-                    Name = "Admin", 
-                    CreatedDate = new DateTime(2024, 1, 1) 
+                new OperationClaim
+                {
+                    Id = AdminId,
+                    Name = "Admin",
+                    CreatedDate = new DateTime(2024, 1, 1)
                 },
-                new OperationClaim 
-                { 
-                    Id = UserId, 
-                    Name = "User", 
-                    CreatedDate = new DateTime(2024, 1, 1) 
+                new OperationClaim
+                {
+                    Id = UserId,
+                    Name = "User",
+                    CreatedDate = new DateTime(2024, 1, 1)
                 },
-                new OperationClaim 
-                { 
-                    Id = DemoUserId, 
-                    Name = "DemoUser", 
-                    CreatedDate = new DateTime(2024, 1, 1) 
+                new OperationClaim
+                {
+                    Id = DemoUserId,
+                    Name = "DemoUser",
+                    CreatedDate = new DateTime(2024, 1, 1)
                 }
             };
         }

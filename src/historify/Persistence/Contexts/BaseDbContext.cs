@@ -1,8 +1,8 @@
-using System.Reflection;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace Persistence.Contexts;
 
@@ -24,7 +24,7 @@ public class BaseDbContext : DbContext
         Configuration = configuration;
     }
 
-protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
@@ -41,8 +41,8 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var properties = entityType.GetProperties().Where(p => p.ClrType == typeof(DateTime));
-            
-            
+
+
 
             foreach (var property in properties)
             {

@@ -1,7 +1,7 @@
 using Historify.Infrastructure.Abstractions.Local;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
 using Historify.Infrastructure.Storage;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Historify.Infrastructure.Services.Storage.Local
 {
@@ -36,7 +36,7 @@ namespace Historify.Infrastructure.Services.Storage.Local
             catch (Exception ex)
             {
                 //todo log!
-                throw ex;
+                throw;
             }
         }
         public async Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string path, IFormFileCollection files)

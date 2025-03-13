@@ -1,10 +1,10 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 
 namespace Application.Features.UserImages.Queries.GetList;
 
@@ -27,7 +27,7 @@ public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageLi
         {
             IPaginate<UserImage> userImages = await _userImageRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 

@@ -3,9 +3,9 @@ using Application.Features.UserImages.Commands.Delete;
 using Application.Features.UserImages.Commands.Update;
 using Application.Features.UserImages.Queries.GetById;
 using Application.Features.UserImages.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

@@ -4,8 +4,8 @@ using Application.Features.UserImages.Commands.Update;
 using Application.Features.UserImages.Queries.GetById;
 using Application.Features.UserImages.Queries.GetList;
 using AutoMapper;
-using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
+using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Features.UserImages.Profiles;

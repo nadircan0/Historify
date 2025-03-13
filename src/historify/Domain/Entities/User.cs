@@ -2,15 +2,15 @@
 
 public class User : NArchitecture.Core.Security.Entities.User<Guid>
 {
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string UserName { get; set; }
-    public string CountryCode { get; set; }
-    public string PhoneNumber { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Surname { get; set; } = string.Empty;
+    public string UserName { get; set; } = string.Empty;
+    public string CountryCode { get; set; } = string.Empty;
+    public string PhoneNumber { get; set; } = string.Empty;
 
+    public virtual ICollection<UserImage> UserImages { get; set; } = new HashSet<UserImage>();
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = default!;
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;
     public virtual ICollection<EmailAuthenticator> EmailAuthenticators { get; set; } = default!;
-    public virtual ICollection<FileAttachment> FileAttachments { get; set; } = new HashSet<FileAttachment>();
 }

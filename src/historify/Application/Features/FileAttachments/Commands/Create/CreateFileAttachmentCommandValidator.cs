@@ -9,5 +9,6 @@ public class CreateFileAttachmentCommandValidator : AbstractValidator<CreateFile
         RuleFor(c => c.FileName).NotEmpty();
         RuleFor(c => c.FilePath).NotEmpty();
         RuleFor(c => c.StorageType).NotEmpty();
+        RuleFor(c => c.UserImageId).NotEmpty();
     }
 }

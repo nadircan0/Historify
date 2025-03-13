@@ -10,5 +10,7 @@ public class UpdateFileAttachmentCommandValidator : AbstractValidator<UpdateFile
         RuleFor(c => c.FileName).NotEmpty();
         RuleFor(c => c.FilePath).NotEmpty();
         RuleFor(c => c.StorageType).NotEmpty();
+        RuleFor(c => c.UploadDate).NotEmpty();
+        RuleFor(c => c.UserImageId).NotEmpty();
     }
 }

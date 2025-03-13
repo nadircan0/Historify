@@ -1,8 +1,9 @@
 ﻿using Application.Services.ImageService;
-using Historify.Infrastructure.Abstractions;
-using Historify.Infrastructure.Storage;
+using Historify.Application.SubServices;
+using Historify.Infrastructure.Services.Storage.Azure;
 using Infrastructure.Adapters.ImageService;
 using Infrastructure.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
@@ -12,14 +13,17 @@ public static class InfrastructureServiceRegistration
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<ImageServiceBase, CloudinaryImageServiceAdapter>();
+
+        // Storage servisleri
         services.AddScoped<IStorageService, StorageManager>();
 
-        return services;
-    }
+        // Varsayılan olarak Azure Storage kullanılacak
+        services.AddScoped<IStorage, AzureStorage>();
+        services.AddScoped<IAzureStorage, AzureStorage>();
 
-    public static void AddStorage<T>(this IServiceCollection serviceCollection)
-        where T : BaseStorage, IStorage
-    {
-        serviceCollection.AddScoped<IStorage, T>();
+        // Local Storage da eklenebilir
+        //services.AddScoped<ILocalStorage, LocalStorage>();
+
+        return services;
     }
 }

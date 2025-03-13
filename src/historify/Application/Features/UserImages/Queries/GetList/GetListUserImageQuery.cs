@@ -10,7 +10,7 @@ namespace Application.Features.UserImages.Queries.GetList;
 
 public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageListItemDto>>
 {
-    public PageRequest PageRequest { get; set; }
+    public required PageRequest PageRequest { get; set; }
 
     public class GetListUserImageQueryHandler
         : IRequestHandler<GetListUserImageQuery, GetListResponse<GetListUserImageListItemDto>>

@@ -1,5 +1,5 @@
 using System;
-using Historify.Infrastructure.Abstractions;
+using Historify.Application.SubServices;
 using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Storage;
@@ -29,4 +29,7 @@ public class StorageManager : IStorageService
         string pathOrContainerName,
         IFormFileCollection files
     ) => _storage.UploadAsync(pathOrContainerName, files);
+
+    public Task<IFormFile> GetFileAsync(string pathOrContainerName, string fileName) =>
+        _storage.GetFileAsync(pathOrContainerName, fileName);
 }

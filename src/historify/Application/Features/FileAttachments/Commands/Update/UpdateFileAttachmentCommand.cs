@@ -12,8 +12,8 @@ public class UpdateFileAttachmentCommand : IRequest<UpdatedFileAttachmentRespons
     public required string FileName { get; set; }
     public required string FilePath { get; set; }
     public required string StorageType { get; set; }
-    public Guid? UserId { get; set; }
-    public Guid? UserImageId { get; set; }
+    public DateTime? UploadDate { get; set; }
+    public required Guid UserImageId { get; set; }
 
     public class UpdateFileAttachmentCommandHandler : IRequestHandler<UpdateFileAttachmentCommand, UpdatedFileAttachmentResponse>
     {

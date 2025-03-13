@@ -1,4 +1,5 @@
 using Application;
+using Historify.Application.SubServices;
 using Historify.Infrastructure.Services.Storage.Azure;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -35,8 +36,6 @@ builder.Services.AddApplicationServices(
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddStorage<AzureStorageManager>();
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
 TokenOptions tokenOptions =

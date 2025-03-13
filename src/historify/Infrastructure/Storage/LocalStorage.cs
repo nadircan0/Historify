@@ -1,20 +1,24 @@
-using Historify.Infrastructure.Abstractions.Local;
+using Historify.Application.SubServices;
 using Historify.Infrastructure.Storage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace Historify.Infrastructure.Services.Storage.Local
 {
-    public class LocalStorageManager : BaseStorage, ILocalStorage
+    public class LocalStorage : BaseStorage, ILocalStorage
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public LocalStorageManager(IWebHostEnvironment webHostEnvironment)
+        public LocalStorage(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task DeleteAsync(string path, string fileName) => File.Delete($"{path}\\{fileName}");
+        public async Task DeleteAsync(string path, string fileName)
+        {
+            File.Delete($"{path}\\{fileName}");
+            await Task.CompletedTask;
+        }
 
         public List<string> GetFiles(string path)
         {
@@ -38,7 +42,7 @@ namespace Historify.Infrastructure.Services.Storage.Local
             catch (Exception ex)
             {
                 //todo log!
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -58,6 +62,18 @@ namespace Historify.Infrastructure.Services.Storage.Local
             }
 
             return datas;
+        }
+
+        //look here again
+        public async Task<IFormFile> GetFileAsync(string path, string fileName)
+        {
+            return new FormFile(
+                File.OpenRead($"{path}\\{fileName}"),
+                0,
+                File.ReadAllBytes($"{path}\\{fileName}").Length,
+                "file",
+                fileName
+            );
         }
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Historify.Infrastructure.Abstractions;
+namespace Historify.Application.SubServices;
 
 public interface IStorage
 {
@@ -8,4 +8,5 @@ public interface IStorage
     Task DeleteAsync(string pathOrContainerName, string fileName);
     List<string> GetFiles(string pathOrContainerName);
     bool HasFile(string pathOrContainerName, string fileName);
+    Task<IFormFile> GetFileAsync(string pathOrContainerName, string fileName);
 }

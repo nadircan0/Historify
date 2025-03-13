@@ -29,8 +29,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(u => u.RefreshTokens);
         builder.HasMany(u => u.EmailAuthenticators);
         builder.HasMany(u => u.OtpAuthenticators);
-        builder.HasMany(u => u.FileAttachments);
-
+        builder.HasMany(u => u.UserImages);
         builder.HasData(GetSeeds());
     }
 

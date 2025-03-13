@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Dtos;
 
 namespace Application.Features.FileAttachments.Queries.GetList;
@@ -5,9 +6,9 @@ namespace Application.Features.FileAttachments.Queries.GetList;
 public class GetListFileAttachmentListItemDto : IDto
 {
     public Guid Id { get; set; }
-    public string FileName { get; set; }
-    public string FilePath { get; set; }
-    public string StorageType { get; set; }
-    public Guid? UserId { get; set; }
-    public Guid? UserImageId { get; set; }
+    public required string FileName { get; set; }
+    public required string FilePath { get; set; }
+    public required string StorageType { get; set; }
+    public required Guid UserImageId { get; set; }
+    public ICollection<IFormFile> Files { get; set; }
 }

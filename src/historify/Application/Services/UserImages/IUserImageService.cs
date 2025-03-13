@@ -27,4 +27,6 @@ public interface IUserImageService
     Task<UserImage> AddAsync(UserImage userImage);
     Task<UserImage> UpdateAsync(UserImage userImage);
     Task<UserImage> DeleteAsync(UserImage userImage, bool permanent = false);
+    Task<UserImage?> GetByIdAsync(Guid id);
+    Task<List<UserImage>> GetListByUserIdAsync(Guid userId);
 }

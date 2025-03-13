@@ -1,20 +1,20 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Historify.Infrastructure.Abstractions.Azure;
+using Historify.Application.SubServices;
 using Historify.Infrastructure.Storage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace Historify.Infrastructure.Services.Storage.Azure
 {
-    public class AzureStorageManager : BaseStorage, IAzureStorage
+    public class AzureStorage : BaseStorage, IAzureStorage
     {
         readonly BlobServiceClient _blobServiceClient;
-        BlobContainerClient _blobContainerClient;
+        private BlobContainerClient? _blobContainerClient;
 
-        public AzureStorageManager(IConfiguration configuration)
+        public AzureStorage(IConfiguration configuration)
         {
-            _blobServiceClient = new(configuration["Storage:Azure"]);
+            _blobServiceClient = new(configuration["Azure:ConnectionString"]);
         }
 
         public async Task DeleteAsync(string containerName, string fileName)
@@ -55,6 +55,14 @@ namespace Historify.Infrastructure.Services.Storage.Azure
                 datas.Add((fileNewName, $"{containerName}/{fileNewName}"));
             }
             return datas;
+        }
+
+        public async Task<IFormFile> GetFileAsync(string containerName, string fileName)
+        {
+            _blobContainerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            BlobClient blobClient = _blobContainerClient.GetBlobClient(fileName);
+            var response = await blobClient.DownloadAsync();
+            return new FormFile(response.Value.Content, 0, response.Value.Content.Length, "UserImage", fileName);
         }
     }
 }

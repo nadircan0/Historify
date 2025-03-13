@@ -12,6 +12,8 @@ public class CreateUserImageCommand : IRequest<CreatedUserImageResponse>
     public required string Description { get; set; }
     public required DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
+    public required Guid UserId { get; set; }
+    public required Guid FileAttachmentId { get; set; }
 
     public class CreateUserImageCommandHandler : IRequestHandler<CreateUserImageCommand, CreatedUserImageResponse>
     {

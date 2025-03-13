@@ -18,6 +18,9 @@ public class UserImageConfiguration : IEntityTypeConfiguration<UserImage>
         builder.Property(ui => ui.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ui => ui.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasOne(ui => ui.User).WithMany(u => u.UserImages).HasForeignKey(ui => ui.UserId);
+        builder.HasOne(ui => ui.FileAttachment).WithOne(fa => fa.UserImage).HasForeignKey<FileAttachment>(fa => fa.UserImageId);
+
         builder.HasQueryFilter(ui => !ui.DeletedDate.HasValue);
     }
 }

@@ -80,4 +80,15 @@ public class UserImageManager : IUserImageService
 
         return deletedUserImage;
     }
+
+    public async Task<UserImage?> GetByIdAsync(Guid id)
+    {
+        return await _userImageRepository.GetAsync(predicate: p => p.Id == id);
+    }
+
+    public async Task<List<UserImage>> GetListByUserIdAsync(Guid userId)
+    {
+        IPaginate<UserImage> userImages = await _userImageRepository.GetListAsync(predicate: p => p.UserId == userId);
+        return userImages.Items.ToList();
+    }
 }

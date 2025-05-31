@@ -9,7 +9,6 @@ namespace Persistence.EntityConfigurations
         // Sabit ve benzersiz GUID'ler
         public static Guid AdminId { get; } = new Guid("00000000-0000-0000-0000-000000000001");
         public static Guid UserId { get; } = new Guid("00000000-0000-0000-0000-000000000002");
-        public static Guid DemoUserId { get; } = new Guid("00000000-0000-0000-0000-000000000003");
 
         public void Configure(EntityTypeBuilder<OperationClaim> builder)
         {
@@ -48,12 +47,7 @@ namespace Persistence.EntityConfigurations
                     Name = "User",
                     CreatedDate = new DateTime(2024, 1, 1)
                 },
-                new OperationClaim
-                {
-                    Id = DemoUserId,
-                    Name = "DemoUser",
-                    CreatedDate = new DateTime(2024, 1, 1)
-                }
+
             };
         }
     }

@@ -48,13 +48,7 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
                 OperationClaimId = OperationClaimConfiguration.UserId,
                 CreatedDate = new DateTime(2024, 1, 1)
             },
-            new UserOperationClaim
-            {
-                Id = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), // Sabit GUID
-                UserId = UserConfiguration.DemoUserId,
-                OperationClaimId = OperationClaimConfiguration.DemoUserId,
-                CreatedDate = new DateTime(2024, 1, 1)
-            }
+
         };
     }
 }

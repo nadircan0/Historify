@@ -7,6 +7,7 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public string UserName { get; set; } = string.Empty;
     public string CountryCode { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
+    public int? TotalSearchCount { get; set; }
 
     public virtual ICollection<UserImage> UserImages { get; set; } = new HashSet<UserImage>();
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;

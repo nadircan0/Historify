@@ -7,6 +7,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
+using static Application.Features.OperationClaims.Constants.OperationClaimsOperationClaims;
 
 namespace Application.Features.OperationClaims.Queries.GetList;
 
@@ -14,7 +15,7 @@ public class GetListOperationClaimQuery : IRequest<GetListResponse<GetListOperat
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [OperationClaimsOperationClaims.Read];
+    public string[] Roles => new[] { Admin };
 
     public GetListOperationClaimQuery()
     {

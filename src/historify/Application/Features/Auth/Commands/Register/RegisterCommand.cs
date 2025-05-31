@@ -11,7 +11,7 @@ namespace Application.Features.Auth.Commands.Register;
 
 public class RegisterCommand : IRequest<RegisteredResponse>
 {
-    public UserForRegisterDto UserForRegisterDto { get; set; }
+    public ExtendedUserForRegisterDto UserForRegisterDto { get; set; }
     public string IpAddress { get; set; }
 
     public RegisterCommand()
@@ -20,7 +20,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         IpAddress = string.Empty;
     }
 
-    public RegisterCommand(UserForRegisterDto userForRegisterDto, string ipAddress)
+    public RegisterCommand(ExtendedUserForRegisterDto userForRegisterDto, string ipAddress)
     {
         UserForRegisterDto = userForRegisterDto;
         IpAddress = ipAddress;
@@ -31,16 +31,23 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
+        private readonly IOperationClaimRepository _operationClaimRepository;
+
 
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
-            AuthBusinessRules authBusinessRules
+            AuthBusinessRules authBusinessRules,
+            IUserOperationClaimRepository userOperationClaimRepository,
+            IOperationClaimRepository operationClaimRepository
         )
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
+            _userOperationClaimRepository = userOperationClaimRepository;
+            _operationClaimRepository = operationClaimRepository;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -58,8 +65,25 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     Email = request.UserForRegisterDto.Email,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
+                    Name = request.UserForRegisterDto.Name,
+                    Surname = request.UserForRegisterDto.Surname,
+                    UserName = request.UserForRegisterDto.UserName,
+                    CountryCode = request.UserForRegisterDto.CountryCode,
+                    PhoneNumber = request.UserForRegisterDto.PhoneNumber,
+                    TotalSearchCount = request.UserForRegisterDto.TotalSearchCount
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
+
+            Guid operationClaimId;
+            await _authBusinessRules.RoleShouldBeValid(request.UserForRegisterDto.Role);
+            operationClaimId = new Guid("00000000-0000-0000-0000-000000000002"); // User ID
+
+            UserOperationClaim userOperationClaim = new()
+            {
+                UserId = createdUser.Id,
+                OperationClaimId = operationClaimId
+            };
+            await _userOperationClaimRepository.AddAsync(userOperationClaim);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
 

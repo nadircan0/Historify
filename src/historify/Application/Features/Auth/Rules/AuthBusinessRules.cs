@@ -86,4 +86,10 @@ public class AuthBusinessRules : BaseBusinessRules
         if (!HashingHelper.VerifyPasswordHash(password, user!.PasswordHash, user.PasswordSalt))
             await throwBusinessException(AuthMessages.PasswordDontMatch);
     }
+
+    public async Task RoleShouldBeValid(string role)
+    {
+        if (role != "User")
+            await throwBusinessException(AuthMessages.RoleNotValid);
+    }
 }

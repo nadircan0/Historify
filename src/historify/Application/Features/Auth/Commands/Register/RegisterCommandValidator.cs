@@ -15,6 +15,16 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
             .WithMessage(
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             );
+        RuleFor(c => c.UserForRegisterDto.Name).NotEmpty().MinimumLength(3).MaximumLength(50);
+        RuleFor(c => c.UserForRegisterDto.Surname).NotEmpty().MinimumLength(3).MaximumLength(50);
+        RuleFor(c => c.UserForRegisterDto.UserName).NotEmpty().MinimumLength(3).MaximumLength(50);
+        RuleFor(c => c.UserForRegisterDto.PhoneNumber).NotEmpty().MinimumLength(10).MaximumLength(15);
+        RuleFor(c => c.UserForRegisterDto.CountryCode).NotEmpty().MinimumLength(2).MaximumLength(5);
+        RuleFor(c => c.UserForRegisterDto.Role).NotEmpty()
+                                                .MinimumLength(3)
+                                                .MaximumLength(50)
+                                                .Must(role => role == "User")
+                                                .WithMessage("Role must be User");
     }
 
     private bool StrongPassword(string value)

@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
+using static Application.Features.OperationClaims.Constants.OperationClaimsOperationClaims;
 
 namespace Application.Features.OperationClaims.Queries.GetById;
 
@@ -12,7 +13,7 @@ public class GetByIdOperationClaimQuery : IRequest<GetByIdOperationClaimResponse
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [OperationClaimsOperationClaims.Read];
+    public string[] Roles => new[] {Admin};
 
     public class GetByIdOperationClaimQueryHandler : IRequestHandler<GetByIdOperationClaimQuery, GetByIdOperationClaimResponse>
     {

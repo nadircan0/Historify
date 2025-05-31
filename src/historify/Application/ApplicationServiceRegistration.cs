@@ -2,8 +2,11 @@ using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.FileAttachments;
+using Application.Services.OperationClaims;
 using Application.Services.UserImages;
+using Application.Services.UserOperationClaims;
 using Application.Services.UsersService;
+using Application.SubServices.MailService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using NArchitecture.Core.Application.Pipelines.Authorization;
@@ -20,6 +23,8 @@ using NArchitecture.Core.ElasticSearch.Models;
 using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
+
+using NArchitecture.Core.Security;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
 
@@ -49,22 +54,26 @@ public static class ApplicationServiceRegistration
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
+        services.AddSingleton<NArchitecture.Core.Mailing.IMailService, MailKitMailService>(_ => new MailKitMailService(mailSettings));
+        services.AddScoped<Application.SubServices.MailService.IMailService, Application.SubServices.MailService.MailService>();
+
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddSingleton<IMailService, MailKitMailService>(_ => new MailKitMailService(mailSettings));
         services.AddSingleton<ILogger, SerilogFileLogger>(_ => new SerilogFileLogger(fileLogConfiguration));
         services.AddSingleton<IElasticSearch, ElasticSearchManager>(_ => new ElasticSearchManager(elasticSearchConfig));
 
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
+        services.AddScoped<IOperationClaimService, OperationClaimManager>();
+        services.AddScoped<IUserImageService, UserImageManager>();
+        services.AddScoped<IFileAttachmentService, FileAttachmentManager>();
 
         services.AddYamlResourceLocalization();
 
         services.AddSecurityServices<Guid, Guid, Guid>(tokenOptions);
 
-        services.AddScoped<IUserImageService, UserImageManager>();
-        services.AddScoped<IFileAttachmentService, FileAttachmentManager>();
         return services;
     }
 

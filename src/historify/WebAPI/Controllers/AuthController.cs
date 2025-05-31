@@ -10,6 +10,8 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NArchitecture.Core.Application.Dtos;
+using Application.Features.Auth.Commands.ResetPassword;
+using Application.Features.Auth.Commands.ChangePassword;
 
 namespace WebAPI.Controllers;
 
@@ -114,6 +116,19 @@ public class AuthController : BaseController
         return Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
     }
 
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommand command)
+    {
+        ResetPasswordResponse response = await Mediator.Send(command);
+        return Ok(response);
+    }
+
+    [HttpPut("change-password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand changePasswordCommand)
+    {
+        ChangePasswordResponse result = await Mediator.Send(changePasswordCommand);
+        return Ok(result);
+    }
     private void setRefreshTokenToCookie(RefreshToken refreshToken)
     {
         CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };

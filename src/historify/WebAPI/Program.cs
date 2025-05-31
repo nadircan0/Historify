@@ -19,9 +19,13 @@ using WebAPI;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+var mailSettings = builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
+    ?? throw new InvalidOperationException("MailSettings section cannot found in configuration.");
+builder.Services.AddSingleton(mailSettings);
+
 builder.Services.AddApplicationServices(
-    mailSettings: builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
-        ?? throw new InvalidOperationException("MailSettings section cannot found in configuration."),
+    mailSettings: mailSettings,
     fileLogConfiguration: builder
         .Configuration.GetSection("SeriLogConfigurations:FileLogConfiguration")
         .Get<FileLogConfiguration>()

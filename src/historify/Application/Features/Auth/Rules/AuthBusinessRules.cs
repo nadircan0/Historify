@@ -1,5 +1,7 @@
 using Application.Features.Auth.Constants;
+using Application.Services.AuthService;
 using Application.Services.Repositories;
+using Application.Services.UsersService;
 using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
@@ -13,11 +15,15 @@ public class AuthBusinessRules : BaseBusinessRules
 {
     private readonly IUserRepository _userRepository;
     private readonly ILocalizationService _localizationService;
+    private readonly IAuthService _authService;
+    private readonly IUserService _userService;
 
-    public AuthBusinessRules(IUserRepository userRepository, ILocalizationService localizationService)
+    public AuthBusinessRules(IUserRepository userRepository, ILocalizationService localizationService, IAuthService authService, IUserService userService)
     {
         _userRepository = userRepository;
         _localizationService = localizationService;
+        _authService = authService;
+        _userService = userService;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -37,6 +43,7 @@ public class AuthBusinessRules : BaseBusinessRules
         if (otpAuthenticator is null)
             await throwBusinessException(AuthMessages.OtpAuthenticatorDontExists);
     }
+
 
     public async Task OtpAuthenticatorThatVerifiedShouldNotBeExists(OtpAuthenticator? otpAuthenticator)
     {
@@ -87,9 +94,28 @@ public class AuthBusinessRules : BaseBusinessRules
             await throwBusinessException(AuthMessages.PasswordDontMatch);
     }
 
-    public async Task RoleShouldBeValid(string role)
+    public async Task CurrentPasswordShouldBeValid(string currentPassword)
     {
-        if (role != "User")
-            await throwBusinessException(AuthMessages.RoleNotValid);
+        bool isValid = await _userService.VerifyCurrentPassword(currentPassword);
+        if (!isValid)
+            throw new BusinessException(AuthMessages.CurrentPasswordIsInvalid);
+    }
+
+    public async Task NewPasswordShouldBeValid(string newPassword)
+    {
+        if (string.IsNullOrEmpty(newPassword))
+            throw new BusinessException(AuthMessages.PasswordIsRequired);
+
+        if (newPassword.Length < 6)
+            throw new BusinessException(AuthMessages.PasswordTooShort);
+
+        if (newPassword.Length > 20)
+            throw new BusinessException(AuthMessages.PasswordTooLong);
+        }
+
+    public async Task NewPasswordShouldBeDifferentFromCurrent(string currentPassword, string newPassword)
+    {
+        if (currentPassword == newPassword)
+            throw new BusinessException(AuthMessages.NewPasswordShouldBeDifferent);
     }
 }

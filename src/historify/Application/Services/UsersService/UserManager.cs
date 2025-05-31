@@ -4,18 +4,27 @@ using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
+using NArchitecture.Core.Security.Hashing;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
+using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 namespace Application.Services.UsersService;
 
 public class UserManager : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserBusinessRules _userBusinessRules;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserManager(IUserRepository userRepository, UserBusinessRules userBusinessRules)
+    public UserManager(
+        IUserRepository userRepository, 
+        UserBusinessRules userBusinessRules,
+        IHttpContextAccessor httpContextAccessor)
     {
         _userRepository = userRepository;
         _userBusinessRules = userBusinessRules;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<User?> GetAsync(
@@ -78,4 +87,32 @@ public class UserManager : IUserService
 
         return deletedUser;
     }
+
+        public async Task<bool> VerifyCurrentPassword(string currentPassword)
+    {
+        User currentUser = await GetCurrentUser();
+        return HashingHelper.VerifyPasswordHash(currentPassword, currentUser.PasswordHash, currentUser.PasswordSalt);
+    }
+
+    public async Task ChangePasswordAsync(string currentPassword, string newPassword)
+    {
+        User currentUser = await GetCurrentUser();
+        
+        byte[] passwordHash, passwordSalt;
+        HashingHelper.CreatePasswordHash(newPassword, out passwordHash, out passwordSalt);
+        
+        currentUser.PasswordHash = passwordHash;
+        currentUser.PasswordSalt = passwordSalt;
+        
+        await UpdateAsync(currentUser);
+    }
+    private async Task<User> GetCurrentUser()
+    {
+        string userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+            ?? throw new BusinessException("User not found");
+        
+        return await GetAsync(predicate: u => u.Id == Guid.Parse(userId))
+            ?? throw new BusinessException("User not found");
+    }
+
 }

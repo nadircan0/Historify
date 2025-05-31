@@ -3,12 +3,13 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-
+using NArchitecture.Core.Application.Pipelines.Authorization;
 namespace Application.Features.UserImages.Queries.GetById;
 
-public class GetByIdUserImageQuery : IRequest<GetByIdUserImageResponse>
+public class GetByIdUserImageQuery : IRequest<GetByIdUserImageResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class GetByIdUserImageQueryHandler : IRequestHandler<GetByIdUserImageQuery, GetByIdUserImageResponse>
     {

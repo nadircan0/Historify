@@ -4,12 +4,14 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.UserImages.Commands.Delete;
 
-public class DeleteUserImageCommand : IRequest<DeletedUserImageResponse>
+public class DeleteUserImageCommand : IRequest<DeletedUserImageResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class DeleteUserImageCommandHandler : IRequestHandler<DeleteUserImageCommand, DeletedUserImageResponse>
     {

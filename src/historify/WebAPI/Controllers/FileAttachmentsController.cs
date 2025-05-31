@@ -3,6 +3,7 @@ using Application.Features.FileAttachments.Commands.Delete;
 using Application.Features.FileAttachments.Commands.Update;
 using Application.Features.FileAttachments.Queries.GetById;
 using Application.Features.FileAttachments.Queries.GetList;
+using Application.Features.FileAttachments.Queries.Download;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -14,7 +15,7 @@ namespace WebAPI.Controllers;
 public class FileAttachmentsController : BaseController
 {
     [HttpPost]
-    public async Task<ActionResult<CreatedFileAttachmentResponse>> Add([FromBody] CreateFileAttachmentCommand command)
+    public async Task<ActionResult<CreatedFileAttachmentResponse>> Add([FromForm] CreateFileAttachmentCommand command)
     {
         CreatedFileAttachmentResponse response = await Mediator.Send(command);
 
@@ -59,5 +60,15 @@ public class FileAttachmentsController : BaseController
         GetListResponse<GetListFileAttachmentListItemDto> response = await Mediator.Send(query);
 
         return Ok(response);
+    }
+
+    [HttpGet("download/{id}")]
+    public async Task<ActionResult<DownloadFileAttachmentResponse>> Download([FromRoute] Guid id)
+    {
+        DownloadFileAttachmentQuery query = new() { Id = id };
+
+        DownloadFileAttachmentResponse response = await Mediator.Send(query);
+
+        return File(response.FileData, response.ContentType, response.FileName);
     }
 }

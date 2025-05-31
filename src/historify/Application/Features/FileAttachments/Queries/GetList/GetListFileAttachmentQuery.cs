@@ -1,18 +1,20 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using Historify.Application.SubServices;
+using Application.SubServices.StorageService;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.FileAttachments.Queries.GetList;
 
-public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAttachmentListItemDto>>
+public class GetListFileAttachmentQuery : IRequest<GetListResponse<GetListFileAttachmentListItemDto>>, ISecuredRequest
 {
     public required PageRequest PageRequest { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class GetListFileAttachmentQueryHandler
         : IRequestHandler<GetListFileAttachmentQuery, GetListResponse<GetListFileAttachmentListItemDto>>

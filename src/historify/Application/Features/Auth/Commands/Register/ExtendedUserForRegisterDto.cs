@@ -9,8 +9,7 @@ public class ExtendedUserForRegisterDto : UserForRegisterDto
     public string UserName { get; set; } = string.Empty;
     public string CountryCode { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
-    public string Role { get; set; } = "User"; 
-    public int TotalSearchCount { get; set; } = 0;
+
 
     public ExtendedUserForRegisterDto() : base()
     {
@@ -24,7 +23,5 @@ public class ExtendedUserForRegisterDto : UserForRegisterDto
         UserName = userName;
         CountryCode = countryCode;
         PhoneNumber = phoneNumber;
-        Role = role; 
-        TotalSearchCount = totalSearchCount;
     }
 } 

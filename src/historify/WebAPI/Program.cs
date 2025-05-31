@@ -1,6 +1,4 @@
 using Application;
-using Historify.Application.SubServices;
-using Historify.Infrastructure.Services.Storage.Azure;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;

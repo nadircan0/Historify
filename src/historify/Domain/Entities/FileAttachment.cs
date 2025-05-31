@@ -1,4 +1,5 @@
 using System;
+using Domain.Enums;
 using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
@@ -7,7 +8,7 @@ public class FileAttachment : Entity<Guid>
 {
     public string FileName { get; set; } = string.Empty;
     public string FilePath { get; set; } = string.Empty; //PathOrContainerName
-    public string StorageType { get; set; } = string.Empty; // "Local" or "Azure" etc.
+    public StorageType StorageType { get; set; } = StorageType.Azure; // "Local" or "Azure" etc.
     public DateTime UploadDate { get; set; } = DateTime.Now;
 
     public Guid? UserImageId { get; set; }

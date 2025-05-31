@@ -1,16 +1,18 @@
 using Application.Features.FileAttachments.Rules;
 using Application.Services.Repositories;
+using Application.SubServices.StorageService;
 using AutoMapper;
 using Domain.Entities;
-using Historify.Application.SubServices;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.FileAttachments.Queries.GetById;
 
-public class GetByIdFileAttachmentQuery : IRequest<GetByIdFileAttachmentResponse>
+public class GetByIdFileAttachmentQuery : IRequest<GetByIdFileAttachmentResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class GetByIdFileAttachmentQueryHandler : IRequestHandler<GetByIdFileAttachmentQuery, GetByIdFileAttachmentResponse>
     {

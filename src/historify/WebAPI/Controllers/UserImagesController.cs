@@ -3,9 +3,11 @@ using Application.Features.UserImages.Commands.Delete;
 using Application.Features.UserImages.Commands.Update;
 using Application.Features.UserImages.Queries.GetById;
 using Application.Features.UserImages.Queries.GetList;
+using Application.Features.UserImages.Queries.DownloadById;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
+using Application.Features.FileAttachments.Queries.Download;
 
 namespace WebAPI.Controllers;
 
@@ -14,7 +16,7 @@ namespace WebAPI.Controllers;
 public class UserImagesController : BaseController
 {
     [HttpPost]
-    public async Task<ActionResult<CreatedUserImageResponse>> Add([FromBody] CreateUserImageCommand command)
+    public async Task<ActionResult<CreatedUserImageResponse>> Add([FromForm] CreateUserImageCommand command)
     {
         CreatedUserImageResponse response = await Mediator.Send(command);
 
@@ -55,6 +57,16 @@ public class UserImagesController : BaseController
         GetListUserImageQuery query = new() { PageRequest = pageRequest };
 
         GetListResponse<GetListUserImageListItemDto> response = await Mediator.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("download/{userId}")]
+    public async Task<ActionResult<List<DownloadUserImagesResponse>>> DownloadByUserId([FromRoute] Guid userId)
+    {
+        DownloadUserImagesQuery query = new() { UserId = userId };
+
+        List<DownloadUserImagesResponse> response = await Mediator.Send(query);
 
         return Ok(response);
     }

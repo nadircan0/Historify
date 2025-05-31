@@ -5,12 +5,13 @@ using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-
+using NArchitecture.Core.Application.Pipelines.Authorization;
 namespace Application.Features.UserImages.Queries.GetList;
 
-public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageListItemDto>>
+public class GetListUserImageQuery : IRequest<GetListResponse<GetListUserImageListItemDto>>, ISecuredRequest
 {
     public required PageRequest PageRequest { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class GetListUserImageQueryHandler
         : IRequestHandler<GetListUserImageQuery, GetListResponse<GetListUserImageListItemDto>>

@@ -20,11 +20,7 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
         RuleFor(c => c.UserForRegisterDto.UserName).NotEmpty().MinimumLength(3).MaximumLength(50);
         RuleFor(c => c.UserForRegisterDto.PhoneNumber).NotEmpty().MinimumLength(10).MaximumLength(15);
         RuleFor(c => c.UserForRegisterDto.CountryCode).NotEmpty().MinimumLength(2).MaximumLength(5);
-        RuleFor(c => c.UserForRegisterDto.Role).NotEmpty()
-                                                .MinimumLength(3)
-                                                .MaximumLength(50)
-                                                .Must(role => role == "User")
-                                                .WithMessage("Role must be User");
+
     }
 
     private bool StrongPassword(string value)

@@ -1,6 +1,7 @@
-namespace Historify.Application.SubServices;
-
-public interface IStorageService : IStorage
+namespace Application.SubServices.StorageService
 {
-    public string StorageName { get; }
-}
+    public interface IStorageService : IStorage
+    {
+        public string StorageName { get; }
+    }
+} 

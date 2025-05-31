@@ -70,7 +70,15 @@ public class CreateUserCommand : IRequest<CreatedUserResponse>, ISecuredRequest
             await _userBusinessRules.UserEmailShouldNotExistsWhenInsert(request.Email);
 
             User user = _mapper.Map<User>(request);
-            await _userRepository.AddAsync(user);
+                HashingHelper.CreatePasswordHash(
+                request.Password,
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt
+            );
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            User createdUser = await _userRepository.AddAsync(user);
+
 
             CreatedUserResponse response = _mapper.Map<CreatedUserResponse>(user);
             return response;

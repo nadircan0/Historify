@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20250312201207_mig2")]
-    partial class mig2
+    [Migration("20250531125422__init")]
+    partial class _init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,37 +80,34 @@ namespace Persistence.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("FileName");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("FilePath");
 
-                    b.Property<string>("StorageType")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("StorageType")
+                        .HasColumnType("integer")
                         .HasColumnName("StorageType");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("UserId");
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("UploadDate");
 
                     b.Property<Guid?>("UserImageId")
+                        .IsRequired()
                         .HasColumnType("uuid")
                         .HasColumnName("UserImageId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserImageId")
-                        .IsUnique();
 
                     b.ToTable("FileAttachments", (string)null);
                 });
@@ -155,12 +152,6 @@ namespace Persistence.Migrations
                             Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "User"
-                        },
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
-                            CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "DemoUser"
                         });
                 });
 
@@ -276,7 +267,8 @@ namespace Persistence.Migrations
 
                     b.Property<string>("CountryCode")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)")
                         .HasColumnName("CountryCode");
 
                     b.Property<DateTime>("CreatedDate")
@@ -289,12 +281,14 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("Email");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("Name");
 
                     b.Property<byte[]>("PasswordHash")
@@ -309,13 +303,22 @@ namespace Persistence.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("Surname");
+
+                    b.Property<int?>("TotalSearchCount")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("TotalSearchCount");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -323,10 +326,20 @@ namespace Persistence.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("UserName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
+                    b.HasIndex("CountryCode", "PhoneNumber")
+                        .IsUnique();
 
                     b.ToTable("Users", (string)null);
 
@@ -339,10 +352,11 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@domain.com",
                             Name = "Admin",
-                            PasswordHash = new byte[] { 243, 141, 73, 155, 1, 3, 54, 43, 105, 143, 221, 224, 91, 64, 114, 72, 41, 176, 146, 127, 104, 132, 203, 191, 140, 60, 84, 73, 228, 82, 22, 65, 187, 150, 229, 95, 152, 146, 86, 50, 95, 43, 12, 176, 143, 62, 83, 54, 20, 203, 42, 185, 146, 208, 89, 168, 204, 238, 64, 248, 246, 206, 104, 184 },
-                            PasswordSalt = new byte[] { 198, 155, 253, 43, 126, 87, 178, 155, 137, 172, 158, 187, 57, 195, 112, 120, 109, 164, 222, 23, 212, 14, 255, 237, 248, 147, 11, 176, 55, 150, 5, 137, 174, 168, 65, 15, 106, 187, 162, 25, 68, 87, 89, 43, 36, 241, 124, 60, 208, 95, 160, 96, 39, 151, 23, 151, 59, 153, 8, 196, 209, 177, 19, 190, 59, 220, 204, 154, 151, 31, 137, 173, 24, 219, 16, 64, 17, 119, 178, 68, 175, 101, 17, 116, 169, 211, 118, 67, 2, 15, 211, 224, 243, 131, 208, 74, 210, 77, 24, 69, 198, 168, 72, 205, 34, 175, 42, 248, 146, 82, 185, 65, 160, 220, 148, 131, 239, 252, 66, 128, 144, 196, 24, 213, 187, 246, 74, 140 },
+                            PasswordHash = new byte[] { 208, 214, 151, 67, 180, 148, 249, 167, 61, 224, 204, 207, 0, 220, 216, 159, 255, 59, 244, 33, 45, 103, 72, 164, 202, 53, 110, 88, 131, 76, 93, 177, 221, 156, 51, 118, 15, 234, 95, 41, 47, 156, 192, 155, 176, 114, 113, 65, 49, 157, 170, 179, 193, 65, 12, 205, 31, 108, 222, 109, 62, 141, 41, 47 },
+                            PasswordSalt = new byte[] { 248, 242, 182, 151, 148, 206, 234, 215, 122, 1, 156, 128, 226, 229, 57, 97, 45, 215, 171, 239, 94, 13, 114, 26, 100, 99, 61, 174, 203, 77, 234, 86, 66, 223, 203, 196, 167, 100, 187, 93, 54, 92, 209, 147, 87, 192, 87, 26, 107, 22, 170, 187, 85, 132, 248, 103, 84, 169, 27, 242, 5, 237, 5, 74, 10, 146, 51, 96, 22, 6, 85, 129, 95, 246, 215, 150, 239, 249, 160, 15, 89, 89, 174, 31, 60, 63, 25, 81, 4, 117, 200, 53, 169, 211, 93, 31, 124, 109, 48, 200, 21, 243, 61, 188, 29, 252, 131, 34, 19, 202, 131, 113, 66, 253, 248, 178, 64, 94, 39, 216, 66, 121, 222, 165, 154, 44, 185, 200 },
                             PhoneNumber = "5555555555",
                             Surname = "User",
+                            TotalSearchCount = 0,
                             UserName = "admin"
                         },
                         new
@@ -353,10 +367,11 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "user@domain.com",
                             Name = "Standard",
-                            PasswordHash = new byte[] { 29, 109, 200, 72, 52, 247, 55, 47, 211, 43, 33, 57, 78, 164, 213, 117, 21, 153, 198, 70, 252, 197, 254, 78, 204, 246, 249, 57, 10, 215, 162, 62, 6, 89, 6, 87, 133, 114, 185, 189, 92, 118, 251, 134, 213, 164, 85, 138, 222, 219, 181, 183, 167, 42, 102, 227, 237, 143, 102, 246, 171, 175, 184, 171 },
-                            PasswordSalt = new byte[] { 182, 24, 136, 216, 95, 57, 154, 145, 177, 251, 59, 32, 144, 185, 98, 116, 236, 45, 73, 167, 164, 114, 21, 167, 129, 168, 219, 237, 126, 210, 108, 120, 179, 216, 160, 185, 83, 250, 45, 19, 70, 181, 12, 248, 220, 99, 87, 62, 19, 29, 83, 12, 41, 188, 59, 130, 46, 203, 113, 2, 62, 160, 90, 31, 169, 94, 180, 237, 123, 205, 26, 213, 220, 110, 132, 128, 158, 183, 32, 39, 200, 149, 216, 140, 210, 229, 166, 129, 38, 135, 104, 245, 159, 154, 26, 129, 24, 165, 9, 75, 86, 100, 248, 226, 192, 71, 193, 61, 196, 125, 167, 244, 215, 189, 54, 231, 40, 236, 31, 162, 228, 175, 67, 14, 92, 99, 4, 208 },
+                            PasswordHash = new byte[] { 26, 10, 207, 76, 245, 238, 217, 157, 47, 132, 64, 156, 68, 208, 253, 34, 148, 51, 225, 116, 45, 155, 95, 165, 52, 22, 148, 49, 94, 67, 28, 199, 79, 144, 118, 57, 110, 90, 16, 154, 173, 243, 106, 107, 236, 175, 116, 125, 111, 151, 143, 59, 149, 231, 117, 249, 170, 238, 74, 10, 255, 190, 8, 69 },
+                            PasswordSalt = new byte[] { 227, 202, 132, 218, 167, 198, 49, 104, 148, 71, 216, 122, 10, 46, 38, 33, 60, 111, 54, 178, 49, 181, 209, 13, 64, 141, 119, 60, 52, 90, 31, 174, 237, 102, 165, 100, 33, 66, 147, 69, 25, 105, 124, 44, 131, 82, 26, 63, 51, 168, 145, 124, 163, 1, 226, 148, 220, 13, 217, 126, 169, 186, 145, 216, 31, 21, 105, 86, 248, 180, 58, 21, 76, 30, 195, 88, 170, 30, 119, 204, 83, 99, 244, 217, 96, 85, 254, 180, 141, 117, 56, 159, 50, 36, 252, 95, 65, 118, 84, 81, 95, 176, 88, 177, 34, 100, 76, 24, 32, 62, 169, 255, 77, 158, 254, 141, 124, 11, 186, 183, 86, 207, 185, 13, 253, 85, 83, 152 },
                             PhoneNumber = "5555555556",
                             Surname = "User",
+                            TotalSearchCount = 0,
                             UserName = "user"
                         },
                         new
@@ -367,10 +382,11 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "demo@domain.com",
                             Name = "Demo",
-                            PasswordHash = new byte[] { 156, 230, 225, 198, 141, 156, 223, 229, 231, 119, 35, 77, 33, 69, 77, 81, 0, 100, 220, 202, 162, 216, 4, 195, 165, 95, 20, 155, 185, 71, 152, 254, 24, 33, 211, 12, 81, 143, 209, 154, 194, 203, 117, 196, 77, 101, 246, 39, 181, 145, 168, 81, 38, 84, 239, 116, 207, 34, 219, 80, 11, 244, 252, 130 },
-                            PasswordSalt = new byte[] { 244, 116, 157, 17, 139, 173, 104, 40, 86, 232, 79, 57, 201, 16, 80, 184, 227, 185, 241, 194, 103, 28, 211, 195, 163, 87, 214, 66, 40, 55, 167, 65, 136, 72, 115, 236, 96, 151, 237, 164, 194, 53, 140, 164, 87, 131, 253, 72, 178, 219, 135, 169, 205, 220, 247, 245, 112, 167, 212, 85, 74, 45, 228, 31, 61, 54, 58, 123, 139, 170, 125, 163, 162, 41, 176, 230, 187, 186, 30, 11, 190, 147, 138, 230, 1, 157, 182, 88, 1, 127, 71, 186, 121, 7, 53, 86, 39, 104, 53, 245, 135, 169, 226, 138, 164, 176, 131, 16, 150, 53, 30, 20, 114, 36, 225, 144, 21, 226, 253, 133, 4, 157, 80, 11, 93, 250, 62, 226 },
+                            PasswordHash = new byte[] { 179, 225, 128, 111, 207, 123, 212, 211, 167, 50, 80, 113, 127, 29, 42, 164, 140, 64, 90, 90, 114, 62, 31, 173, 200, 196, 189, 60, 62, 106, 65, 168, 43, 6, 203, 144, 127, 7, 211, 218, 123, 249, 132, 187, 122, 41, 70, 172, 114, 18, 125, 100, 253, 227, 35, 227, 65, 35, 199, 242, 10, 175, 175, 216 },
+                            PasswordSalt = new byte[] { 88, 54, 127, 93, 79, 152, 89, 202, 73, 198, 53, 187, 229, 209, 145, 233, 160, 164, 45, 217, 93, 41, 214, 128, 129, 140, 53, 190, 236, 58, 232, 100, 213, 215, 223, 117, 112, 181, 96, 246, 212, 91, 169, 183, 161, 121, 88, 220, 228, 226, 232, 20, 248, 87, 95, 8, 157, 255, 51, 85, 12, 7, 51, 224, 137, 187, 251, 2, 11, 207, 166, 246, 196, 16, 205, 139, 145, 60, 74, 109, 176, 236, 214, 242, 145, 4, 116, 212, 179, 123, 26, 79, 111, 4, 168, 96, 107, 141, 45, 176, 191, 221, 50, 48, 141, 161, 116, 68, 178, 253, 215, 146, 26, 111, 221, 186, 110, 121, 4, 6, 144, 110, 70, 187, 99, 177, 2, 136 },
                             PhoneNumber = "5555555557",
                             Surname = "User",
+                            TotalSearchCount = 0,
                             UserName = "demo"
                         },
                         new
@@ -381,10 +397,11 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "nadircandegirmendere@gmail.com",
                             Name = "Nadir can",
-                            PasswordHash = new byte[] { 17, 211, 212, 16, 206, 56, 161, 192, 1, 53, 80, 47, 40, 55, 23, 84, 106, 138, 104, 100, 155, 233, 71, 204, 209, 109, 124, 236, 160, 131, 245, 240, 148, 181, 105, 21, 250, 112, 5, 130, 44, 90, 24, 178, 4, 19, 17, 50, 254, 212, 208, 138, 194, 105, 38, 93, 246, 66, 178, 247, 145, 185, 253, 241 },
-                            PasswordSalt = new byte[] { 253, 12, 72, 155, 140, 195, 15, 126, 6, 185, 210, 129, 80, 107, 243, 122, 249, 117, 83, 240, 50, 106, 234, 132, 114, 8, 70, 207, 243, 147, 248, 34, 95, 143, 5, 147, 200, 215, 126, 72, 49, 7, 123, 16, 255, 217, 86, 123, 245, 5, 66, 128, 211, 59, 11, 90, 235, 18, 68, 130, 197, 98, 235, 34, 202, 81, 153, 101, 207, 218, 102, 130, 132, 239, 123, 235, 6, 95, 123, 188, 126, 21, 69, 130, 92, 126, 108, 47, 42, 177, 65, 33, 241, 111, 21, 223, 133, 201, 54, 36, 12, 22, 241, 130, 155, 88, 224, 192, 72, 141, 30, 71, 60, 103, 142, 247, 189, 81, 246, 188, 206, 118, 129, 196, 57, 74, 141, 87 },
+                            PasswordHash = new byte[] { 14, 22, 86, 109, 202, 228, 228, 117, 141, 210, 141, 243, 170, 164, 101, 104, 116, 130, 34, 228, 201, 105, 94, 209, 134, 197, 228, 182, 97, 182, 148, 170, 251, 223, 193, 136, 141, 104, 242, 22, 245, 68, 8, 170, 215, 126, 40, 62, 92, 197, 121, 135, 112, 86, 42, 187, 129, 4, 190, 213, 38, 242, 55, 107 },
+                            PasswordSalt = new byte[] { 34, 142, 50, 7, 243, 254, 33, 65, 135, 165, 207, 75, 115, 53, 224, 234, 35, 115, 241, 173, 225, 8, 249, 131, 49, 101, 207, 240, 21, 1, 0, 70, 205, 98, 125, 21, 165, 180, 23, 2, 18, 26, 91, 199, 88, 82, 53, 146, 126, 228, 151, 70, 132, 8, 172, 160, 175, 148, 148, 1, 59, 37, 49, 59, 52, 54, 24, 122, 6, 237, 23, 235, 7, 61, 251, 250, 179, 99, 4, 17, 37, 7, 43, 40, 104, 24, 195, 84, 215, 3, 194, 98, 165, 11, 181, 164, 199, 196, 41, 112, 216, 172, 174, 32, 206, 176, 46, 184, 68, 245, 19, 116, 234, 169, 139, 246, 87, 247, 195, 127, 64, 154, 37, 27, 203, 22, 3, 135 },
                             PhoneNumber = "5555555558",
                             Surname = "Degirmendere",
+                            TotalSearchCount = 0,
                             UserName = "cansnow"
                         });
                 });
@@ -406,11 +423,20 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("Description");
 
+                    b.Property<int>("DescriptionType")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("FileAttachmentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("FileAttachmentId");
+
                     b.Property<string>("Tags")
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("Tags");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -421,7 +447,16 @@ namespace Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UploadDate");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("FileAttachmentId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserImages", (string)null);
                 });
@@ -475,13 +510,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             OperationClaimId = new Guid("00000000-0000-0000-0000-000000000002"),
                             UserId = new Guid("22222222-2222-2222-2222-222222222222")
-                        },
-                        new
-                        {
-                            Id = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
-                            CreatedDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            OperationClaimId = new Guid("00000000-0000-0000-0000-000000000003"),
-                            UserId = new Guid("33333333-3333-3333-3333-333333333333")
                         });
                 });
 
@@ -494,21 +522,6 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.FileAttachment", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("Domain.Entities.UserImage", "UserImage")
-                        .WithOne("FileAttachment")
-                        .HasForeignKey("Domain.Entities.FileAttachment", "UserImageId");
-
-                    b.Navigation("User");
-
-                    b.Navigation("UserImage");
                 });
 
             modelBuilder.Entity("Domain.Entities.OtpAuthenticator", b =>
@@ -533,6 +546,25 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.UserImage", b =>
+                {
+                    b.HasOne("Domain.Entities.FileAttachment", "FileAttachment")
+                        .WithOne("UserImage")
+                        .HasForeignKey("Domain.Entities.UserImage", "FileAttachmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("UserImages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileAttachment");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.UserOperationClaim", b =>
                 {
                     b.HasOne("Domain.Entities.OperationClaim", "OperationClaim")
@@ -552,23 +584,22 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.FileAttachment", b =>
+                {
+                    b.Navigation("UserImage");
+                });
+
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("EmailAuthenticators");
-
-                    b.Navigation("FileAttachments");
 
                     b.Navigation("OtpAuthenticators");
 
                     b.Navigation("RefreshTokens");
 
-                    b.Navigation("UserOperationClaims");
-                });
+                    b.Navigation("UserImages");
 
-            modelBuilder.Entity("Domain.Entities.UserImage", b =>
-                {
-                    b.Navigation("FileAttachment")
-                        .IsRequired();
+                    b.Navigation("UserOperationClaims");
                 });
 #pragma warning restore 612, 618
         }

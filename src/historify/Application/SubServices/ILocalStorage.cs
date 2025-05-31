@@ -1,5 +1,5 @@
-using Historify.Application.SubServices;
+using Application.SubServices.StorageService;
 
-namespace Historify.Application.SubServices;
+namespace Application.SubServices;
 
 public interface ILocalStorage : IStorage { }

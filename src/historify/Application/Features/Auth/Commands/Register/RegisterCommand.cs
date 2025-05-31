@@ -70,12 +70,11 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     UserName = request.UserForRegisterDto.UserName,
                     CountryCode = request.UserForRegisterDto.CountryCode,
                     PhoneNumber = request.UserForRegisterDto.PhoneNumber,
-                    TotalSearchCount = request.UserForRegisterDto.TotalSearchCount
+                    TotalSearchCount = 0
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
 
             Guid operationClaimId;
-            await _authBusinessRules.RoleShouldBeValid(request.UserForRegisterDto.Role);
             operationClaimId = new Guid("00000000-0000-0000-0000-000000000002"); // User ID
 
             UserOperationClaim userOperationClaim = new()

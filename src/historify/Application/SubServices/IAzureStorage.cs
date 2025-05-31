@@ -1,5 +1,6 @@
-using Historify.Application.SubServices;
-
-namespace Historify.Application.SubServices;
-
-public interface IAzureStorage : IStorage { }
+namespace Application.SubServices.StorageService
+{
+    public interface IAzureStorage : IStorage
+    {
+    }
+} 

@@ -3,15 +3,16 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-
+using NArchitecture.Core.Application.Pipelines.Authorization;
 namespace Application.Features.UserImages.Commands.Update;
 
-public class UpdateUserImageCommand : IRequest<UpdatedUserImageResponse>
+public class UpdateUserImageCommand : IRequest<UpdatedUserImageResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
     public required string Description { get; set; }
     public required DateTime UploadDate { get; set; }
     public string? Tags { get; set; }
+    public string[] Roles => new[] { "Admin", "User" };
 
     public class UpdateUserImageCommandHandler : IRequestHandler<UpdateUserImageCommand, UpdatedUserImageResponse>
     {

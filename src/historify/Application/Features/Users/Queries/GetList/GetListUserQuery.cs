@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
@@ -14,7 +15,7 @@ public class GetListUserQuery : IRequest<GetListResponse<GetListUserListItemDto>
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [UsersOperationClaims.Read];
+    public string[] Roles => [UsersOperationClaims.Admin, UsersOperationClaims.User, UsersOperationClaims.Read];
 
     public GetListUserQuery()
     {
@@ -41,7 +42,14 @@ public class GetListUserQuery : IRequest<GetListResponse<GetListUserListItemDto>
             GetListUserQuery request,
             CancellationToken cancellationToken
         )
+
         {
+            var query = _userRepository.Query()
+                .Include(u => u.UserOperationClaims)
+                    .ThenInclude(uoc => uoc.OperationClaim)
+                .Where(u => !u.UserOperationClaims.Any(uoc => uoc.OperationClaim.Name == "Admin"));
+           
+           
             IPaginate<User> users = await _userRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,

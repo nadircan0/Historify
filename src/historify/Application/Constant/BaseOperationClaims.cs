@@ -6,7 +6,7 @@ public static class BaseOperationClaims
 
     public const string User = "User";
     public static string[] AllRoles => [Admin, User];
-     
+
     public static class Operations
     {
         public const string Read = "Read";
@@ -15,7 +15,7 @@ public static class BaseOperationClaims
         public const string Update = "Update";
         public const string Delete = "Delete";
     }
-    
+
     public static string[] GetOperationsForSection(string section)
     {
         return [
@@ -26,4 +26,4 @@ public static class BaseOperationClaims
             $"{section}.{Operations.Delete}"
         ];
     }
-} 
+}

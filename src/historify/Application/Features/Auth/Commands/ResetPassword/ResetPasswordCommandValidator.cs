@@ -10,4 +10,4 @@ public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordComm
             .NotEmpty().WithMessage("Email alanı boş olamaz.")
             .EmailAddress().WithMessage("Geçerli bir email adresi giriniz.");
     }
-} 
+}

@@ -23,7 +23,7 @@ public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimRespons
         Name = name;
     }
 
-    public string[] Roles => new[] { Admin};
+    public string[] Roles => new[] { Admin };
 
     public class CreateOperationClaimCommandHandler : IRequestHandler<CreateOperationClaimCommand, CreatedOperationClaimResponse>
     {

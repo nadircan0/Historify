@@ -1,13 +1,13 @@
+using Application.Features.FileAttachments.Queries.Download;
 using Application.Features.UserImages.Commands.Create;
 using Application.Features.UserImages.Commands.Delete;
 using Application.Features.UserImages.Commands.Update;
+using Application.Features.UserImages.Queries.DownloadById;
 using Application.Features.UserImages.Queries.GetById;
 using Application.Features.UserImages.Queries.GetList;
-using Application.Features.UserImages.Queries.DownloadById;
 using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Application.Features.FileAttachments.Queries.Download;
 
 namespace WebAPI.Controllers;
 

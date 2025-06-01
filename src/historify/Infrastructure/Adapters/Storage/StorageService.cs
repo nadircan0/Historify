@@ -34,6 +34,6 @@ namespace Infrastructure.Adapters.Storage
 
         // GetFileAsync method added    
         public Task<IFormFile> GetFileAsync(string pathOrContainerName, string fileName)
-            => _storage.GetFileAsync(pathOrContainerName, fileName);    
+            => _storage.GetFileAsync(pathOrContainerName, fileName);
     }
-} 
+}

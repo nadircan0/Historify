@@ -2,7 +2,7 @@ namespace Application.Features.UserImages.Constants;
 
 public static class UserImagesConstants
 {
-    public static readonly string[] AllowedMimeTypes = 
+    public static readonly string[] AllowedMimeTypes =
     {
         "image/jpeg",
         "image/jpg",
@@ -11,4 +11,4 @@ public static class UserImagesConstants
         "image/bmp",
         "image/webp"
     };
-} 
+}

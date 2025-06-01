@@ -1,7 +1,7 @@
-﻿using System.Linq.Expressions;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
+using System.Linq.Expressions;
 
 namespace Application.Services.UsersService;
 
@@ -30,6 +30,6 @@ public interface IUserService
     Task<User> UpdateAsync(User user);
     Task<User> DeleteAsync(User user, bool permanent = false);
 
-        Task<bool> VerifyCurrentPassword(string currentPassword);
+    Task<bool> VerifyCurrentPassword(string currentPassword);
     Task ChangePasswordAsync(string currentPassword, string newPassword);
 }

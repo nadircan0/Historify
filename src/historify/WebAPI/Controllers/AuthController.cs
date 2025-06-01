@@ -1,8 +1,10 @@
-﻿using Application.Features.Auth.Commands.EnableEmailAuthenticator;
+﻿using Application.Features.Auth.Commands.ChangePassword;
+using Application.Features.Auth.Commands.EnableEmailAuthenticator;
 using Application.Features.Auth.Commands.EnableOtpAuthenticator;
 using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
+using Application.Features.Auth.Commands.ResetPassword;
 using Application.Features.Auth.Commands.RevokeToken;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
@@ -10,8 +12,6 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NArchitecture.Core.Application.Dtos;
-using Application.Features.Auth.Commands.ResetPassword;
-using Application.Features.Auth.Commands.ChangePassword;
 
 namespace WebAPI.Controllers;
 

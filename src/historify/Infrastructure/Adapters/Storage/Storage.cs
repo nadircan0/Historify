@@ -60,4 +60,4 @@ namespace Infrastructure.Adapters.Storage
             return newFileName;
         }
     }
-} 
+}

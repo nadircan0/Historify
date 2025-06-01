@@ -1,12 +1,12 @@
 using Application.Features.FileAttachments.Constants;
 using Application.Features.FileAttachments.Rules;
 using Application.Services.Repositories;
+using Application.SubServices.StorageService;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.FileAttachments.Constants.FileAttachmentsOperationClaims;
-using Application.SubServices.StorageService;
 
 
 namespace Application.Features.FileAttachments.Queries.Download;
@@ -59,22 +59,22 @@ public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentRespon
             string contentType = GetContentType(fileAttachment.FileName);
 
             DownloadFileAttachmentResponse response = _mapper.Map<DownloadFileAttachmentResponse>(fileAttachment);
-            
+
             response.FileName = fileAttachment.FileName;
             response.ContentType = contentType;
             response.FileData = fileData;
-            
+
             return response;
 
         }
- 
+
 
         private string GetContentType(string fileName)
         {
             var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(fileName, out string contentType))
             {
-                contentType = "application/octet-stream"; 
+                contentType = "application/octet-stream";
             }
             return contentType;
         }

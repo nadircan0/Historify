@@ -1,13 +1,13 @@
+using Application.Features.FileAttachments.Commands.Create;
+using Application.Features.FileAttachments.Commands.Update;
 using Application.Features.UserImages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Application.Features.FileAttachments.Commands.Create;
-using Domain.Enums;
 using NArchitecture.Core.Application.Pipelines.Authorization;
-using Application.Features.FileAttachments.Commands.Update;
 
 namespace Application.Features.UserImages.Commands.Create;
 

@@ -10,4 +10,4 @@ public class ResetPasswordResponse : IResponse
     {
         Message = message;
     }
-} 
+}

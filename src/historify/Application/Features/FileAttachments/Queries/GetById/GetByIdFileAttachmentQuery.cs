@@ -3,9 +3,9 @@ using Application.Services.Repositories;
 using Application.SubServices.StorageService;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.FileAttachments.Queries.GetById;
 

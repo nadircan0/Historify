@@ -1,8 +1,8 @@
-using System.Reflection;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace Persistence.Contexts;
 

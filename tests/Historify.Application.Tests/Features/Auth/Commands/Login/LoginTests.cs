@@ -8,6 +8,7 @@ using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
 using FluentValidation.TestHelper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
@@ -15,7 +16,6 @@ using NArchitecture.Core.Localization.Resource.Yaml;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.EmailAuthenticator;
-
 using NArchitecture.Core.Security.JWT;
 using NArchitecture.Core.Security.OtpAuthenticator;
 using NArchitecture.Core.Security.OtpAuthenticator.OtpNet;
@@ -23,7 +23,6 @@ using StarterProject.Application.Tests.Mocks.Configurations;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 using StarterProject.Application.Tests.Mocks.Repositories.Auth;
 using static Application.Features.Auth.Commands.Login.LoginCommand;
-using Microsoft.AspNetCore.Http;
 
 namespace StarterProject.Application.Tests.Features.Auth.Commands.Login;
 

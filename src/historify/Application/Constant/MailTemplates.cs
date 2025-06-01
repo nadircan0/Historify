@@ -12,11 +12,11 @@ public static class MailTemplates
         public const string TEXT_COLOR = "#333333";
     }
 
-public static class PasswordReset
-{
-    public const string SUBJECT = "Şifre Sıfırlama";
-    public static string GetBody(string code, string name)
-        => $@"
+    public static class PasswordReset
+    {
+        public const string SUBJECT = "Şifre Sıfırlama";
+        public static string GetBody(string code, string name)
+            => $@"
             <div style='font-family: Arial, sans-serif; font-size: 16px; color: #222; max-width: 600px; margin: 0 auto; background-color: #f7f7f7; padding: 20px; border-radius: 8px;'>
                 <div style='background-color: white; padding: 30px; border-radius: 6px; box-shadow: 0px 2px 10px rgba(0,0,0,0.08);'>
                     <div style='text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;'>
@@ -33,7 +33,7 @@ public static class PasswordReset
                     </div>
                 </div>
             </div>";
-}
+    }
 
 
     public static class WelcomeMessage
@@ -59,4 +59,4 @@ public static class PasswordReset
             </div>";
     }
 
-} 
+}

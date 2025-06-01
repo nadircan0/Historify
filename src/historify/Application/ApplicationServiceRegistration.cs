@@ -1,4 +1,3 @@
-using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.FileAttachments;
@@ -23,10 +22,10 @@ using NArchitecture.Core.ElasticSearch.Models;
 using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
-
 using NArchitecture.Core.Security;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
+using System.Reflection;
 
 namespace Application;
 

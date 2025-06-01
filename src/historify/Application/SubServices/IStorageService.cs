@@ -4,4 +4,4 @@ namespace Application.SubServices.StorageService
     {
         public string StorageName { get; }
     }
-} 
+}

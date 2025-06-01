@@ -13,7 +13,7 @@ public class GetByIdOperationClaimQuery : IRequest<GetByIdOperationClaimResponse
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => new[] {Admin};
+    public string[] Roles => new[] { Admin };
 
     public class GetByIdOperationClaimQueryHandler : IRequestHandler<GetByIdOperationClaimQuery, GetByIdOperationClaimResponse>
     {

@@ -1,9 +1,9 @@
 using Application.Features.FileAttachments.Commands.Create;
 using Application.Features.FileAttachments.Commands.Delete;
 using Application.Features.FileAttachments.Commands.Update;
+using Application.Features.FileAttachments.Queries.Download;
 using Application.Features.FileAttachments.Queries.GetById;
 using Application.Features.FileAttachments.Queries.GetList;
-using Application.Features.FileAttachments.Queries.Download;
 using AutoMapper;
 using Domain.Entities;
 using NArchitecture.Core.Application.Responses;

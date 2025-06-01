@@ -18,4 +18,4 @@ public class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCo
             .Must((command, newPassword) => newPassword != command.CurrentPassword)
             .WithMessage("Yeni şifre mevcut şifre ile aynı olamaz.");
     }
-} 
+}

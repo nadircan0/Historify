@@ -48,8 +48,8 @@ public class GetListUserQuery : IRequest<GetListResponse<GetListUserListItemDto>
                 .Include(u => u.UserOperationClaims)
                     .ThenInclude(uoc => uoc.OperationClaim)
                 .Where(u => !u.UserOperationClaims.Any(uoc => uoc.OperationClaim.Name == "Admin"));
-           
-           
+
+
             IPaginate<User> users = await _userRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,

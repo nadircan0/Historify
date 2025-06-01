@@ -16,5 +16,5 @@ public static class UserOperationClaimsOperationClaims
     public const string Create = $"{_section}.{BaseOperationClaims.Operations.Create}";
     public const string Update = $"{_section}.{BaseOperationClaims.Operations.Update}";
     public const string Delete = $"{_section}.{BaseOperationClaims.Operations.Delete}";
-    
+
 }

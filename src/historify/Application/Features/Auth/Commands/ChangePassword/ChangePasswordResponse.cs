@@ -10,4 +10,4 @@ public class ChangePasswordResponse
         Success = success;
         Message = message;
     }
-} 
+}

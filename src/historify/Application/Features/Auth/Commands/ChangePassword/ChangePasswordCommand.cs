@@ -34,8 +34,8 @@ public class ChangePasswordCommand : IRequest<ChangePasswordResponse>
             await _authBusinessRules.NewPasswordShouldBeDifferentFromCurrent(request.CurrentPassword, request.NewPassword);
 
             await _userService.ChangePasswordAsync(request.CurrentPassword, request.NewPassword);
-            
+
             return new ChangePasswordResponse(true, "Şifreniz başarıyla değiştirildi.");
         }
     }
-} 
+}

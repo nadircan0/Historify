@@ -7,4 +7,4 @@ namespace Application.SubServices.MailService
         public string Body { get; set; } = string.Empty;
         public bool IsBodyHtml { get; set; } = false;
     }
-} 
+}

@@ -1,10 +1,10 @@
+using Application.Features.FileAttachments.Queries.Download;
+using Application.Features.UserImages.Constants;
 using Application.Features.UserImages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using Application.Features.FileAttachments.Queries.Download;
-using Application.Features.UserImages.Constants;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.UserImages.Queries.DownloadById;

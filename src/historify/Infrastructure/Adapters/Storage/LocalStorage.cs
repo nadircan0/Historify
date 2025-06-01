@@ -1,8 +1,8 @@
-using Application.SubServices.StorageService;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using Application.SubServices;
+using Application.SubServices.StorageService;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Infrastructure.Adapters.Storage
 {
@@ -14,7 +14,7 @@ namespace Infrastructure.Adapters.Storage
         {
             _webHostEnvironment = webHostEnvironment;
         }
-        
+
         public async Task DeleteAsync(string path)
             => File.Delete(Path.Combine(path));
 
@@ -26,7 +26,7 @@ namespace Infrastructure.Adapters.Storage
 
         public bool HasFile(string path)
             => File.Exists(path);
-            
+
         async Task<bool> CopyFileAsync(string path, IFormFile file)
         {
             try
@@ -66,7 +66,7 @@ namespace Infrastructure.Adapters.Storage
             {
                 return await Task.FromResult<Stream>(new FileStream(filePath, FileMode.Open, FileAccess.Read));
             }
-            
+
             throw new FileNotFoundException($"Dosya '{filePath}' bulunamadı.");
         }
 

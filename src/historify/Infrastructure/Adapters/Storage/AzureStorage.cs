@@ -1,9 +1,9 @@
 using Application.SubServices.StorageService;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Infrastructure.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Infrastructure.Operations;
 
 namespace Infrastructure.Adapters.Storage
 {
@@ -17,7 +17,7 @@ namespace Infrastructure.Adapters.Storage
         public AzureStorage(IConfiguration configuration)
         {
             _connectionString = configuration.GetSection("Storage:Azure:ConnectionString").Value;
-            _containerName = "histofy-files"; 
+            _containerName = "histofy-files";
 
             if (string.IsNullOrEmpty(_connectionString))
                 throw new ArgumentNullException(nameof(_connectionString), "Azure Storage connection string is not configured.");
@@ -26,7 +26,7 @@ namespace Infrastructure.Adapters.Storage
                 throw new ArgumentNullException(nameof(_containerName), "Azure Storage container name is not configured.");
 
             InitializeBlobContainer();
-        } 
+        }
 
         private void InitializeBlobContainer()
         {

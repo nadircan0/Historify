@@ -17,7 +17,7 @@ public static class AuthOperationClaims
     public const string Create = $"{_section}.{BaseOperationClaims.Operations.Create}";
     public const string Update = $"{_section}.{BaseOperationClaims.Operations.Update}";
     public const string Delete = $"{_section}.{BaseOperationClaims.Operations.Delete}";
-    
+
     // Extra Auth Operations
     public const string Login = $"{_section}.Login";
     public const string Register = $"{_section}.Register";

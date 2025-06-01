@@ -5,4 +5,4 @@ namespace Application.SubServices.MailService
         Task SendMailAsync(MailDto mailDto);
         Task SendEmailAsync(NArchitecture.Core.Mailing.Mail mail);
     }
-} 
+}

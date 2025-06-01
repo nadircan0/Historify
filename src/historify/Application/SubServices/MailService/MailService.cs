@@ -1,5 +1,5 @@
-using NArchitecture.Core.Mailing;
 using MimeKit;
+using NArchitecture.Core.Mailing;
 
 namespace Application.SubServices.MailService;
 
@@ -43,4 +43,4 @@ public class MailService : IMailService
             throw new Exception($"Send Mail Error: {ex.Message}", ex);
         }
     }
-} 
+}

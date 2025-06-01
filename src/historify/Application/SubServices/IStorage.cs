@@ -11,4 +11,4 @@ namespace Application.SubServices.StorageService
         Task<Stream> DownloadAsync(string filePath);
         Task<IFormFile> GetFileAsync(string pathOrContainerName, string fileName);
     }
-} 
+}

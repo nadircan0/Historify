@@ -14,14 +14,14 @@ public class ExtendedUserForRegisterDto : UserForRegisterDto
     public ExtendedUserForRegisterDto() : base()
     {
     }
- 
-    public ExtendedUserForRegisterDto(string email, string password, string name, string surname, string userName, string countryCode, string phoneNumber, string role = "User", int totalSearchCount = 0) 
+
+    public ExtendedUserForRegisterDto(string email, string password, string name, string surname, string userName, string countryCode, string phoneNumber, string role = "User", int totalSearchCount = 0)
         : base(email, password)
     {
-        Name = name;    
+        Name = name;
         Surname = surname;
         UserName = userName;
         CountryCode = countryCode;
         PhoneNumber = phoneNumber;
     }
-} 
+}

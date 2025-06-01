@@ -111,7 +111,7 @@ public class AuthBusinessRules : BaseBusinessRules
 
         if (newPassword.Length > 20)
             throw new BusinessException(AuthMessages.PasswordTooLong);
-        }
+    }
 
     public async Task NewPasswordShouldBeDifferentFromCurrent(string currentPassword, string newPassword)
     {

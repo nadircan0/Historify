@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Profiles;
+using Application.Features.Users.Profiles;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;

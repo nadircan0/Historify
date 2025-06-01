@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+namespace Domain.Entities;
 
 public class User : NArchitecture.Core.Security.Entities.User<Guid>
 {

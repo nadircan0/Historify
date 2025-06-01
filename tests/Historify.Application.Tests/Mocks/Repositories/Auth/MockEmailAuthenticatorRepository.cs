@@ -1,4 +1,4 @@
-﻿using Application.Services.Repositories;
+using Application.Services.Repositories;
 using Moq;
 
 namespace StarterProject.Application.Tests.Mocks.Repositories.Auth;

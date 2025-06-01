@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 
 namespace Application.Features.OperationClaims.Commands.Create;
 

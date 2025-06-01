@@ -1,4 +1,4 @@
-﻿using Application.Constants;
+using Application.Constants;
 
 namespace Application.Features.OperationClaims.Constants;
 

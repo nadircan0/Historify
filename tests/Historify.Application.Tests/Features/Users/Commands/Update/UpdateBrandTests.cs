@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Commands.Update;
+using Application.Features.Users.Commands.Update;
 using FluentValidation.Results;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Test.Application.Constants;

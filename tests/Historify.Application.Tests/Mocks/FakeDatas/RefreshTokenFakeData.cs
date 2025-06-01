@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using NArchitecture.Core.Test.Application.FakeData;
 
 namespace StarterProject.Application.Tests.Mocks.FakeDatas;

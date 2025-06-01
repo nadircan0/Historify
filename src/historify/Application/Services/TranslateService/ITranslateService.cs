@@ -1,4 +1,4 @@
-﻿namespace Application.Services.TranslateService;
+namespace Application.Services.TranslateService;
 
 public interface ITranslateService
 {

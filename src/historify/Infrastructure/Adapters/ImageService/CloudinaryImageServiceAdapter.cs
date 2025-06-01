@@ -1,4 +1,4 @@
-﻿using Application.Services.ImageService;
+using Application.Services.ImageService;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;

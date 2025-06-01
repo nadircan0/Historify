@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Test.Application.FakeData;
 

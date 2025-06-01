@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Queries.GetById;
+using Application.Features.Users.Queries.GetById;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 using StarterProject.Application.Tests.Mocks.Repositories;

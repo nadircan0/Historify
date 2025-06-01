@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using StarterProject.Application.Tests.DependencyResolvers;
 
 namespace StarterProject.Application.Tests;

@@ -1,4 +1,4 @@
-﻿using Application.Features.UserOperationClaims.Rules;
+using Application.Features.UserOperationClaims.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;

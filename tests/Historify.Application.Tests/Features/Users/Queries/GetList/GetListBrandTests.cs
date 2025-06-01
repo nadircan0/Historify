@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Queries.GetList;
+using Application.Features.Users.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using StarterProject.Application.Tests.Mocks.FakeDatas;

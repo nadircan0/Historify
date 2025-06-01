@@ -1,4 +1,4 @@
-﻿using Application.Features.OperationClaims.Commands.Create;
+using Application.Features.OperationClaims.Commands.Create;
 using Application.Features.OperationClaims.Commands.Delete;
 using Application.Features.OperationClaims.Commands.Update;
 using Application.Features.OperationClaims.Queries.GetById;

@@ -1,4 +1,4 @@
-﻿using Application.Services.Repositories;
+using Application.Services.Repositories;
 using Moq;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 

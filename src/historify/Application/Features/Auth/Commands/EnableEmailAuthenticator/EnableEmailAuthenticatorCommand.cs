@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Rules;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthenticatorService;
 using Application.Services.Repositories;
 using Application.Services.UsersService;

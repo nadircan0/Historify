@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Rules;
+using Application.Features.Auth.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;

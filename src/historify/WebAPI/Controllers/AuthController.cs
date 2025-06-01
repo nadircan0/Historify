@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Commands.ChangePassword;
+using Application.Features.Auth.Commands.ChangePassword;
 using Application.Features.Auth.Commands.EnableEmailAuthenticator;
 using Application.Features.Auth.Commands.EnableOtpAuthenticator;
 using Application.Features.Auth.Commands.Login;

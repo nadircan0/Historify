@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Rules;
+using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;

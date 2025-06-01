@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+namespace Domain.Entities;
 
 public class EmailAuthenticator : NArchitecture.Core.Security.Entities.EmailAuthenticator<Guid>
 {

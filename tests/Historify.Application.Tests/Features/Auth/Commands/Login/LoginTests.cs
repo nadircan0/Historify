@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Profiles;
 using Application.Features.Auth.Rules;
 using Application.Features.Users.Rules;

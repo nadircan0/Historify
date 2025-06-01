@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Commands.Delete;
+using Application.Features.Users.Commands.Delete;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 using StarterProject.Application.Tests.Mocks.Repositories;

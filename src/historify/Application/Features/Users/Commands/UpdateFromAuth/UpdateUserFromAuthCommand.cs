@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Rules;
+using Application.Features.Users.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using AutoMapper;

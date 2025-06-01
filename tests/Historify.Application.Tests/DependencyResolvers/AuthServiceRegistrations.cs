@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.Login;
 using Microsoft.Extensions.DependencyInjection;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 

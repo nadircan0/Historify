@@ -15,6 +15,7 @@ using NArchitecture.Core.Localization.Resource.Yaml;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.EmailAuthenticator;
+
 using NArchitecture.Core.Security.JWT;
 using NArchitecture.Core.Security.OtpAuthenticator;
 using NArchitecture.Core.Security.OtpAuthenticator.OtpNet;
@@ -22,6 +23,7 @@ using StarterProject.Application.Tests.Mocks.Configurations;
 using StarterProject.Application.Tests.Mocks.FakeDatas;
 using StarterProject.Application.Tests.Mocks.Repositories.Auth;
 using static Application.Features.Auth.Commands.Login.LoginCommand;
+using Microsoft.AspNetCore.Http;
 
 namespace StarterProject.Application.Tests.Features.Auth.Commands.Login;
 
@@ -65,8 +67,8 @@ public class LoginTests
             AcceptLocales = new[] { "en" }
         };
         IMapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<MappingProfiles>()));
+        IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
         #endregion
-        AuthBusinessRules authBusinessRules = new(_userRepository, localizationService);
         IAuthService _authService = new AuthManager(
             _userOperationClaimRepository,
             _refreshTokenRepository,
@@ -75,7 +77,8 @@ public class LoginTests
             mapper
         );
         UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
-        IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
+        IUserService _userService = new UserManager(_userRepository, _userBusinessRules, httpContextAccessor);
+        AuthBusinessRules authBusinessRules = new(_userRepository, localizationService, _authService, _userService);
         IAuthenticatorService _authententicatorService = new AuthenticatorManager(
             emailAuthenticatorHelper,
             _userEmailAuthenticatorRepository,

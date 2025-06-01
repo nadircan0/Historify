@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using Application.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Auth.Rules;
@@ -8,8 +10,6 @@ using MediatR;
 using MimeKit;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Security.Hashing;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Application.Features.Auth.Commands.ResetPassword;
 

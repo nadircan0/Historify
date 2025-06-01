@@ -1,8 +1,8 @@
+using System.IO;
 using Application.SubServices;
 using Application.SubServices.StorageService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace Infrastructure.Adapters.Storage
 {

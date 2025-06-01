@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using System.Security.Claims;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using Domain.Entities;
@@ -6,8 +8,6 @@ using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Persistence.Paging;
 using NArchitecture.Core.Security.Hashing;
-using System.Linq.Expressions;
-using System.Security.Claims;
 
 namespace Application.Services.UsersService;
 

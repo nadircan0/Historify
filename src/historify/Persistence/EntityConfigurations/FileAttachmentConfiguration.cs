@@ -21,7 +21,8 @@ public class FileAttachmentConfiguration : IEntityTypeConfiguration<FileAttachme
         builder.Property(fa => fa.DeletedDate).HasColumnName("DeletedDate");
 
         // Relationships
-        builder.HasOne(fa => fa.UserImage)
+        builder
+            .HasOne(fa => fa.UserImage)
             .WithOne(ui => ui.FileAttachment)
             .HasForeignKey<FileAttachment>(fa => fa.UserImageId)
             .OnDelete(DeleteBehavior.Cascade);

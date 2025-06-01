@@ -24,7 +24,12 @@ public class ResetPasswordCommand : IRequest<ResetPasswordResponse>
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IMediator _mediator;
 
-        public ResetPasswordCommandHandler(IUserRepository userRepository, IMailService mailService, AuthBusinessRules authBusinessRules, IMediator mediator)
+        public ResetPasswordCommandHandler(
+            IUserRepository userRepository,
+            IMailService mailService,
+            AuthBusinessRules authBusinessRules,
+            IMediator mediator
+        )
         {
             _userRepository = userRepository;
             _mailService = mailService;
@@ -45,13 +50,15 @@ public class ResetPasswordCommand : IRequest<ResetPasswordResponse>
 
             string htmlBody = MailTemplates.PasswordReset.GetBody(newPassword, user.Name ?? user.Email);
 
-            await _mailService.SendMailAsync(new MailDto
-            {
-                To = user.Email,
-                Subject = MailTemplates.PasswordReset.SUBJECT,
-                Body = htmlBody,
-                IsBodyHtml = true
-            });
+            await _mailService.SendMailAsync(
+                new MailDto
+                {
+                    To = user.Email,
+                    Subject = MailTemplates.PasswordReset.SUBJECT,
+                    Body = htmlBody,
+                    IsBodyHtml = true
+                }
+            );
 
             return new ResetPasswordResponse(AuthMessages.ResetPasswordMailSent);
         }

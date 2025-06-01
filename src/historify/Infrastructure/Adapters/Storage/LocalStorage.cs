@@ -15,8 +15,7 @@ namespace Infrastructure.Adapters.Storage
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task DeleteAsync(string path)
-            => File.Delete(Path.Combine(path));
+        public async Task DeleteAsync(string path) => File.Delete(Path.Combine(path));
 
         public List<string> GetFiles(string path)
         {
@@ -24,14 +23,14 @@ namespace Infrastructure.Adapters.Storage
             return directory.GetFiles().Select(f => f.Name).ToList();
         }
 
-        public bool HasFile(string path)
-            => File.Exists(path);
+        public bool HasFile(string path) => File.Exists(path);
 
         async Task<bool> CopyFileAsync(string path, IFormFile file)
         {
             try
             {
-                await using FileStream fileStream = new(path, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, useAsync: true);
+                await using FileStream fileStream =
+                    new(path, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, useAsync: true);
 
                 await file.CopyToAsync(fileStream);
                 await fileStream.FlushAsync();
@@ -74,7 +73,13 @@ namespace Infrastructure.Adapters.Storage
         {
             if (File.Exists(filePath))
             {
-                return new FormFile(new FileStream(filePath, FileMode.Open, FileAccess.Read), 0, new FileInfo(filePath).Length, "file", fileName);
+                return new FormFile(
+                    new FileStream(filePath, FileMode.Open, FileAccess.Read),
+                    0,
+                    new FileInfo(filePath).Length,
+                    "file",
+                    fileName
+                );
             }
 
             throw new FileNotFoundException($"Dosya '{fileName}' bulunamadı.");

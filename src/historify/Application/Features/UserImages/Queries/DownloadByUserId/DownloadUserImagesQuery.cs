@@ -35,9 +35,11 @@ public class DownloadUserImagesQuery : IRequest<List<DownloadUserImagesResponse>
             _mapper = mapper;
         }
 
-        public async Task<List<DownloadUserImagesResponse>> Handle(DownloadUserImagesQuery request, CancellationToken cancellationToken)
+        public async Task<List<DownloadUserImagesResponse>> Handle(
+            DownloadUserImagesQuery request,
+            CancellationToken cancellationToken
+        )
         {
-
             //get all user images
             var userImages = await _userImageRepository.GetListAsync(
                 predicate: ui => ui.UserId == request.UserId,

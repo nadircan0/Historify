@@ -20,7 +20,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var mailSettings = builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
+var mailSettings =
+    builder.Configuration.GetSection("MailSettings").Get<MailSettings>()
     ?? throw new InvalidOperationException("MailSettings section cannot found in configuration.");
 builder.Services.AddSingleton(mailSettings);
 

@@ -1,6 +1,4 @@
 namespace Application.SubServices.StorageService
 {
-    public interface IAzureStorage : IStorage
-    {
-    }
+    public interface IAzureStorage : IStorage { }
 }

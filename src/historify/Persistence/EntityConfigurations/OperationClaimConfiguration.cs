@@ -47,7 +47,6 @@ namespace Persistence.EntityConfigurations
                     Name = "User",
                     CreatedDate = new DateTime(2024, 1, 1)
                 },
-
             };
         }
     }

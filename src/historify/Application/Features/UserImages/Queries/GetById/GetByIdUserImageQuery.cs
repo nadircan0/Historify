@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
+
 namespace Application.Features.UserImages.Queries.GetById;
 
 public class GetByIdUserImageQuery : IRequest<GetByIdUserImageResponse>, ISecuredRequest

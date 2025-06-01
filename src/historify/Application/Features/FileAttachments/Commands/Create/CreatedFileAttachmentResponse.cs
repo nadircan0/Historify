@@ -12,5 +12,4 @@ public class CreatedFileAttachmentResponse : IResponse
     public required StorageType StorageType { get; set; }
     public DateTime UploadDate { get; set; }
     public required Guid UserImageId { get; set; }
-
 }

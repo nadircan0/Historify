@@ -34,7 +34,6 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserOperationClaimRepository _userOperationClaimRepository;
         private readonly IOperationClaimRepository _operationClaimRepository;
 
-
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
@@ -77,11 +76,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             Guid operationClaimId;
             operationClaimId = new Guid("00000000-0000-0000-0000-000000000002"); // User ID
 
-            UserOperationClaim userOperationClaim = new()
-            {
-                UserId = createdUser.Id,
-                OperationClaimId = operationClaimId
-            };
+            UserOperationClaim userOperationClaim = new() { UserId = createdUser.Id, OperationClaimId = operationClaimId };
             await _userOperationClaimRepository.AddAsync(userOperationClaim);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);

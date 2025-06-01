@@ -21,12 +21,14 @@ public class UserImageConfiguration : IEntityTypeConfiguration<UserImage>
         builder.Property(ui => ui.DeletedDate).HasColumnName("DeletedDate");
 
         // Relationships
-        builder.HasOne(ui => ui.User)
+        builder
+            .HasOne(ui => ui.User)
             .WithMany(u => u.UserImages)
             .HasForeignKey(ui => ui.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(ui => ui.FileAttachment)
+        builder
+            .HasOne(ui => ui.FileAttachment)
             .WithOne(fa => fa.UserImage)
             .HasForeignKey<UserImage>(ui => ui.FileAttachmentId)
             .OnDelete(DeleteBehavior.Restrict);

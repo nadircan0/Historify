@@ -14,7 +14,6 @@ public class GetListUserListItemDto : IDto
     public int TotalSearchCount { get; set; }
     public List<string> Roles { get; set; } = new();
 
-
     public GetListUserListItemDto()
     {
         FirstName = string.Empty;
@@ -25,7 +24,15 @@ public class GetListUserListItemDto : IDto
         Email = string.Empty;
     }
 
-    public GetListUserListItemDto(Guid id, string firstName, string lastName, string userName, string countryCode, string phoneNumber, string email)
+    public GetListUserListItemDto(
+        Guid id,
+        string firstName,
+        string lastName,
+        string userName,
+        string countryCode,
+        string phoneNumber,
+        string email
+    )
     {
         Id = id;
         FirstName = firstName;
@@ -34,7 +41,5 @@ public class GetListUserListItemDto : IDto
         CountryCode = countryCode;
         PhoneNumber = phoneNumber;
         Email = email;
-
-
     }
 }

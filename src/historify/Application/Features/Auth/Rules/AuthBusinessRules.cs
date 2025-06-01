@@ -18,7 +18,12 @@ public class AuthBusinessRules : BaseBusinessRules
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
 
-    public AuthBusinessRules(IUserRepository userRepository, ILocalizationService localizationService, IAuthService authService, IUserService userService)
+    public AuthBusinessRules(
+        IUserRepository userRepository,
+        ILocalizationService localizationService,
+        IAuthService authService,
+        IUserService userService
+    )
     {
         _userRepository = userRepository;
         _localizationService = localizationService;
@@ -43,7 +48,6 @@ public class AuthBusinessRules : BaseBusinessRules
         if (otpAuthenticator is null)
             await throwBusinessException(AuthMessages.OtpAuthenticatorDontExists);
     }
-
 
     public async Task OtpAuthenticatorThatVerifiedShouldNotBeExists(OtpAuthenticator? otpAuthenticator)
     {

@@ -7,7 +7,9 @@ public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordComm
     public ResetPasswordCommandValidator()
     {
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("Email alanı boş olamaz.")
-            .EmailAddress().WithMessage("Geçerli bir email adresi giriniz.");
+            .NotEmpty()
+            .WithMessage("Email alanı boş olamaz.")
+            .EmailAddress()
+            .WithMessage("Geçerli bir email adresi giriniz.");
     }
 }

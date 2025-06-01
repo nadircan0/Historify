@@ -18,7 +18,8 @@ public static class BaseOperationClaims
 
     public static string[] GetOperationsForSection(string section)
     {
-        return [
+        return
+        [
             $"{section}.{Operations.Read}",
             $"{section}.{Operations.Write}",
             $"{section}.{Operations.Create}",

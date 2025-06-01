@@ -42,13 +42,12 @@ public class GetListUserQuery : IRequest<GetListResponse<GetListUserListItemDto>
             GetListUserQuery request,
             CancellationToken cancellationToken
         )
-
         {
-            var query = _userRepository.Query()
+            var query = _userRepository
+                .Query()
                 .Include(u => u.UserOperationClaims)
-                    .ThenInclude(uoc => uoc.OperationClaim)
+                .ThenInclude(uoc => uoc.OperationClaim)
                 .Where(u => !u.UserOperationClaims.Any(uoc => uoc.OperationClaim.Name == "Admin"));
-
 
             IPaginate<User> users = await _userRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,

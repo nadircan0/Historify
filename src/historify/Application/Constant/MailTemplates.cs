@@ -15,8 +15,9 @@ public static class MailTemplates
     public static class PasswordReset
     {
         public const string SUBJECT = "Şifre Sıfırlama";
-        public static string GetBody(string code, string name)
-            => $@"
+
+        public static string GetBody(string code, string name) =>
+            $@"
             <div style='font-family: Arial, sans-serif; font-size: 16px; color: #222; max-width: 600px; margin: 0 auto; background-color: #f7f7f7; padding: 20px; border-radius: 8px;'>
                 <div style='background-color: white; padding: 30px; border-radius: 6px; box-shadow: 0px 2px 10px rgba(0,0,0,0.08);'>
                     <div style='text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;'>
@@ -35,11 +36,12 @@ public static class MailTemplates
             </div>";
     }
 
-
     public static class WelcomeMessage
     {
         public const string SUBJECT = "🎉 Histofy' a Hoş Geldiniz!";
-        public static string GetBody(string userName) => $@"
+
+        public static string GetBody(string userName) =>
+            $@"
             <div style='font-family: {Settings.FONT_FAMILY}; font-size: {Settings.FONT_SIZE}; color: {Settings.TEXT_COLOR}; max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; background-color: #ffffff;'>
                 <div style='text-align: center; padding: 20px 0; margin-bottom: 20px; background-color: {Settings.SECONDARY_COLOR}; border-radius: 6px;'>
                     <h2 style='color: {Settings.PRIMARY_COLOR}; margin: 0;'>Merhaba {userName}!</h2>
@@ -58,5 +60,4 @@ public static class MailTemplates
                 </div>
             </div>";
     }
-
 }

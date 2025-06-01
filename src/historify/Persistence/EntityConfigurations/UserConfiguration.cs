@@ -32,30 +32,31 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(u => new { u.CountryCode, u.PhoneNumber }).IsUnique();
 
         // Relationships
-        builder.HasMany(u => u.UserOperationClaims)
+        builder
+            .HasMany(u => u.UserOperationClaims)
             .WithOne(uoc => uoc.User)
             .HasForeignKey(uoc => uoc.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(u => u.RefreshTokens)
+        builder
+            .HasMany(u => u.RefreshTokens)
             .WithOne(rt => rt.User)
             .HasForeignKey(rt => rt.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(u => u.EmailAuthenticators)
+        builder
+            .HasMany(u => u.EmailAuthenticators)
             .WithOne(ea => ea.User)
             .HasForeignKey(ea => ea.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(u => u.OtpAuthenticators)
+        builder
+            .HasMany(u => u.OtpAuthenticators)
             .WithOne(oa => oa.User)
             .HasForeignKey(oa => oa.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany(u => u.UserImages)
-            .WithOne(ui => ui.User)
-            .HasForeignKey(ui => ui.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(u => u.UserImages).WithOne(ui => ui.User).HasForeignKey(ui => ui.UserId).OnDelete(DeleteBehavior.Cascade);
 
         builder.HasQueryFilter(u => !u.DeletedDate.HasValue);
 

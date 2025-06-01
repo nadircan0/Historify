@@ -8,6 +8,7 @@ using NArchitecture.Core.Persistence.Paging;
 using NArchitecture.Core.Security.Hashing;
 using System.Linq.Expressions;
 using System.Security.Claims;
+
 namespace Application.Services.UsersService;
 
 public class UserManager : IUserService
@@ -19,7 +20,8 @@ public class UserManager : IUserService
     public UserManager(
         IUserRepository userRepository,
         UserBusinessRules userBusinessRules,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor
+    )
     {
         _userRepository = userRepository;
         _userBusinessRules = userBusinessRules;
@@ -97,7 +99,8 @@ public class UserManager : IUserService
     {
         User currentUser = await GetCurrentUser();
 
-        byte[] passwordHash, passwordSalt;
+        byte[] passwordHash,
+            passwordSalt;
         HashingHelper.CreatePasswordHash(newPassword, out passwordHash, out passwordSalt);
 
         currentUser.PasswordHash = passwordHash;
@@ -105,13 +108,13 @@ public class UserManager : IUserService
 
         await UpdateAsync(currentUser);
     }
+
     private async Task<User> GetCurrentUser()
     {
-        string userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+        string userId =
+            _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
             ?? throw new BusinessException("User not found");
 
-        return await GetAsync(predicate: u => u.Id == Guid.Parse(userId))
-            ?? throw new BusinessException("User not found");
+        return await GetAsync(predicate: u => u.Id == Guid.Parse(userId)) ?? throw new BusinessException("User not found");
     }
-
 }

@@ -8,14 +8,14 @@ using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.FileAttachments.Constants.FileAttachmentsOperationClaims;
 
-
 namespace Application.Features.FileAttachments.Queries.Download;
 
 public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [FileAttachmentsOperationClaims.Admin, FileAttachmentsOperationClaims.User, FileAttachmentsOperationClaims.Read];
+    public string[] Roles =>
+        [FileAttachmentsOperationClaims.Admin, FileAttachmentsOperationClaims.User, FileAttachmentsOperationClaims.Read];
 
     public class DownloadFileAttachmentQueryHandler : IRequestHandler<DownloadFileAttachmentQuery, DownloadFileAttachmentResponse>
     {
@@ -28,7 +28,8 @@ public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentRespon
             IFileAttachmentRepository fileAttachmentRepository,
             FileAttachmentBusinessRules fileAttachmentBusinessRules,
             IStorageService storageService,
-            IMapper mapper)
+            IMapper mapper
+        )
         {
             _fileAttachmentRepository = fileAttachmentRepository;
             _fileAttachmentBusinessRules = fileAttachmentBusinessRules;
@@ -36,7 +37,10 @@ public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentRespon
             _mapper = mapper;
         }
 
-        public async Task<DownloadFileAttachmentResponse> Handle(DownloadFileAttachmentQuery request, CancellationToken cancellationToken)
+        public async Task<DownloadFileAttachmentResponse> Handle(
+            DownloadFileAttachmentQuery request,
+            CancellationToken cancellationToken
+        )
         {
             // Dosya mevcut mu kontrolü
             FileAttachment? fileAttachment = await _fileAttachmentRepository.GetAsync(
@@ -46,15 +50,11 @@ public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentRespon
 
             await _fileAttachmentBusinessRules.FileAttachmentShouldExistWhenSelected(fileAttachment);
 
-
             using Stream fileStream = await _storageService.DownloadAsync(fileAttachment.FilePath);
-
-
 
             using var memoryStream = new MemoryStream();
             await fileStream.CopyToAsync(memoryStream);
             byte[] fileData = memoryStream.ToArray();
-
 
             string contentType = GetContentType(fileAttachment.FileName);
 
@@ -65,9 +65,7 @@ public class DownloadFileAttachmentQuery : IRequest<DownloadFileAttachmentRespon
             response.FileData = fileData;
 
             return response;
-
         }
-
 
         private string GetContentType(string fileName)
         {

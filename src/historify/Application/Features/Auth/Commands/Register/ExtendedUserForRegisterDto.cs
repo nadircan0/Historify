@@ -10,12 +10,20 @@ public class ExtendedUserForRegisterDto : UserForRegisterDto
     public string CountryCode { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
 
+    public ExtendedUserForRegisterDto()
+        : base() { }
 
-    public ExtendedUserForRegisterDto() : base()
-    {
-    }
-
-    public ExtendedUserForRegisterDto(string email, string password, string name, string surname, string userName, string countryCode, string phoneNumber, string role = "User", int totalSearchCount = 0)
+    public ExtendedUserForRegisterDto(
+        string email,
+        string password,
+        string name,
+        string surname,
+        string userName,
+        string countryCode,
+        string phoneNumber,
+        string role = "User",
+        int totalSearchCount = 0
+    )
         : base(email, password)
     {
         Name = name;

@@ -10,7 +10,6 @@ public static class AuthOperationClaims
     public const string Admin = BaseOperationClaims.Admin;
     public const string User = BaseOperationClaims.User;
 
-
     // Operations
     public const string Read = $"{_section}.{BaseOperationClaims.Operations.Read}";
     public const string Write = $"{_section}.{BaseOperationClaims.Operations.Write}";

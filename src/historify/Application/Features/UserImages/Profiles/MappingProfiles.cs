@@ -28,14 +28,13 @@ public class MappingProfiles : Profile
         CreateMap<UserImage, GetByIdUserImageResponse>();
 
         CreateMap<UserImage, DownloadUserImagesResponse>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.UploadDate, opt => opt.MapFrom(src => src.UploadDate))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
-                .ForMember(dest => dest.FileName, opt => opt.Ignore())
-                .ForMember(dest => dest.ContentType, opt => opt.Ignore())
-                .ForMember(dest => dest.FileAttachmentId, opt => opt.Ignore());
-
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.UploadDate, opt => opt.MapFrom(src => src.UploadDate))
+            .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
+            .ForMember(dest => dest.FileName, opt => opt.Ignore())
+            .ForMember(dest => dest.ContentType, opt => opt.Ignore())
+            .ForMember(dest => dest.FileAttachmentId, opt => opt.Ignore());
 
         CreateMap<DownloadFileAttachmentResponse, DownloadUserImagesResponse>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -45,8 +44,6 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.FileName, opt => opt.MapFrom(src => src.FileName))
             .ForMember(dest => dest.ContentType, opt => opt.MapFrom(src => src.ContentType))
             .ForMember(dest => dest.FileAttachmentId, opt => opt.MapFrom(src => src.Id));
-
-
 
         CreateMap<UserImage, GetListUserImageListItemDto>();
         CreateMap<IPaginate<UserImage>, GetListResponse<GetListUserImageListItemDto>>();

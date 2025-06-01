@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
+
 namespace Application.Features.FileAttachments.Commands.Delete;
 
 public class DeleteFileAttachmentCommand : IRequest<DeletedFileAttachmentResponse>, ISecuredRequest

@@ -53,7 +53,9 @@ public static class ApplicationServiceRegistration
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
-        services.AddSingleton<NArchitecture.Core.Mailing.IMailService, MailKitMailService>(_ => new MailKitMailService(mailSettings));
+        services.AddSingleton<NArchitecture.Core.Mailing.IMailService, MailKitMailService>(_ => new MailKitMailService(
+            mailSettings
+        ));
         services.AddScoped<Application.SubServices.MailService.IMailService, Application.SubServices.MailService.MailService>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

@@ -129,6 +129,7 @@ public class AuthController : BaseController
         ChangePasswordResponse result = await Mediator.Send(changePasswordCommand);
         return Ok(result);
     }
+
     private void setRefreshTokenToCookie(RefreshToken refreshToken)
     {
         CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };

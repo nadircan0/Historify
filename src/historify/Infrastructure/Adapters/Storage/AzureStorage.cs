@@ -13,7 +13,6 @@ namespace Infrastructure.Adapters.Storage
         private readonly string _containerName;
         private BlobContainerClient _blobContainerClient;
 
-
         public AzureStorage(IConfiguration configuration)
         {
             _connectionString = configuration.GetSection("Storage:Azure:ConnectionString").Value;
@@ -30,14 +29,11 @@ namespace Infrastructure.Adapters.Storage
 
         private void InitializeBlobContainer()
         {
-
             BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
             _blobContainerClient = blobServiceClient.GetBlobContainerClient(_containerName);
 
-
             _blobContainerClient.CreateIfNotExists();
         }
-
 
         public async Task DeleteAsync(string filePath)
         {
@@ -51,7 +47,7 @@ namespace Infrastructure.Adapters.Storage
         /// </summary>
         // public List<string> GetFiles(string pathOrContainerName)
         // {
-        //     var fileList = new List<string>(); 
+        //     var fileList = new List<string>();
 
         //     // pathOrContainerName prefix olarak kullanılır
         //     var blobItems = _blobContainerClient.GetBlobsAsync(
@@ -76,14 +72,14 @@ namespace Infrastructure.Adapters.Storage
 
         public bool HasFile(string filePath)
         {
-
             BlobClient blobClient = _blobContainerClient.GetBlobClient(filePath);
             return blobClient.Exists().Value;
         }
 
-
-
-        public async Task<(string fileName, string filePath, long fileSize)> UploadAsync(string pathOrContainerName, IFormFile file)
+        public async Task<(string fileName, string filePath, long fileSize)> UploadAsync(
+            string pathOrContainerName,
+            IFormFile file
+        )
         {
             string fileNewName = await FileRenameAsync(pathOrContainerName, file.FileName, HasFile);
 
@@ -101,7 +97,6 @@ namespace Infrastructure.Adapters.Storage
 
         public async Task<Stream> DownloadAsync(string filePath)
         {
-
             BlobClient blobClient = _blobContainerClient.GetBlobClient(filePath);
 
             if (await blobClient.ExistsAsync())
@@ -115,12 +110,9 @@ namespace Infrastructure.Adapters.Storage
             }
         }
 
-
         // GetFileAsync method added
         public async Task<IFormFile> GetFileAsync(string filePath, string fileName)
         {
-
-
             BlobClient blobClient = _blobContainerClient.GetBlobClient(filePath);
             if (await blobClient.ExistsAsync())
             {
@@ -132,11 +124,5 @@ namespace Infrastructure.Adapters.Storage
                 throw new FileNotFoundException($"Blob '{filePath}' was not found.");
             }
         }
-
-
-
-
-
-
     }
 }

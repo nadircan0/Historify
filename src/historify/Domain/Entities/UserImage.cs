@@ -24,7 +24,15 @@ public class UserImage : Entity<Guid>
         Tags = string.Empty;
     }
 
-    public UserImage(Guid id, string description, DescriptionType descriptionType, DateTime uploadDate, string? tags, Guid userId, Guid fileAttachmentId)
+    public UserImage(
+        Guid id,
+        string description,
+        DescriptionType descriptionType,
+        DateTime uploadDate,
+        string? tags,
+        Guid userId,
+        Guid fileAttachmentId
+    )
     {
         Id = id;
         Description = description;

@@ -1,5 +1,6 @@
 using Domain.Enums;
 using NArchitecture.Core.Application.Responses;
+
 namespace Application.Features.UserImages.Queries.DownloadByUserId;
 
 public class DownloadUserImagesResponse : IResponse
@@ -13,13 +14,11 @@ public class DownloadUserImagesResponse : IResponse
     public string ContentType { get; set; }
     public Guid FileAttachmentId { get; set; }
 
-
     public DownloadUserImagesResponse()
     {
         Description = string.Empty;
         FileName = string.Empty;
         ContentType = string.Empty;
         FileAttachmentId = Guid.Empty;
-
     }
 }

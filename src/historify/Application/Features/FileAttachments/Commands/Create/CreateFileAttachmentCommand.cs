@@ -7,6 +7,7 @@ using Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Pipelines.Authorization;
+
 namespace Application.Features.FileAttachments.Commands.Create;
 
 public class CreateFileAttachmentCommand : IRequest<CreatedFileAttachmentResponse>, ISecuredRequest
@@ -41,8 +42,6 @@ public class CreateFileAttachmentCommand : IRequest<CreatedFileAttachmentRespons
             CancellationToken cancellationToken
         )
         {
-
-
             string pathOrContainerName = "userImages";
             var uploadedFileAttribute = await _storage.UploadAsync(pathOrContainerName, request.File);
 
@@ -52,8 +51,6 @@ public class CreateFileAttachmentCommand : IRequest<CreatedFileAttachmentRespons
             fileAttachment.FileName = uploadedFileAttribute.fileName;
             fileAttachment.UploadDate = DateTime.Now;
             fileAttachment.StorageType = StorageType.Azure;
-
-
 
             await _fileAttachmentRepository.AddAsync(fileAttachment);
 

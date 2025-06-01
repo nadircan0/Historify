@@ -1,7 +1,6 @@
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.UsersService;
-
 using MediatR;
 
 namespace Application.Features.Auth.Commands.ChangePassword;
@@ -20,7 +19,8 @@ public class ChangePasswordCommand : IRequest<ChangePasswordResponse>
         public ChangePasswordCommandHandler(
             IAuthService authService,
             IUserService userService,
-            AuthBusinessRules authBusinessRules)
+            AuthBusinessRules authBusinessRules
+        )
         {
             _authService = authService;
             _userService = userService;

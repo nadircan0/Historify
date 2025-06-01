@@ -1,6 +1,6 @@
 using Domain.Enums;
 using NArchitecture.Core.Application.Responses;
-namespace Application.Features.UserImages.Queries.DownloadById;
+namespace Application.Features.UserImages.Queries.DownloadByUserId;
 
 public class DownloadUserImagesResponse : IResponse
 {

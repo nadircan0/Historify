@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.Features.UserImages.Queries.DownloadById;
+namespace Application.Features.UserImages.Queries.DownloadByUserId;
 
 public class DownloadUserImagesQueryValidator : AbstractValidator<DownloadUserImagesQuery>
 {

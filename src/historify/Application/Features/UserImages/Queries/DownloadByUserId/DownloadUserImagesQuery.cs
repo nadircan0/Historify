@@ -7,7 +7,7 @@ using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 
-namespace Application.Features.UserImages.Queries.DownloadById;
+namespace Application.Features.UserImages.Queries.DownloadByUserId;
 
 public class DownloadUserImagesQuery : IRequest<List<DownloadUserImagesResponse>>, ISecuredRequest
 {
